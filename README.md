@@ -1,51 +1,59 @@
 # Postman Migration Assistant
 
-Trang giới thiệu và demo cho plugin chuyển Postman Collection v2.0/v2.1
-sang IntelliJ HTTP Client. Xem website tại
-[shadowmoon6868.github.io/postman-migration-assistant](https://shadowmoon6868.github.io/postman-migration-assistant/).
+A marketing site and illustrated demo for a plugin that converts Postman
+Collection v2.0/v2.1 into IntelliJ HTTP Client files.
 
-Plugin phân tích collection offline, đọc environment/globals, chỉ rõ request
-phụ thuộc và xuất `scenario.http`, `independent.http`, các file environment,
-compatibility script và migration report. Request không có ánh xạ an toàn
-được đưa vào manual review. Technical preview hiện nhắm IntelliJ IDEA
-Ultimate 2025.3.2; xem [compatibility matrix](site/docs/COMPATIBILITY.md).
+**Website:** [English](https://shadowmoon6868.github.io/postman-migration-assistant/)
+· [Русский](https://shadowmoon6868.github.io/postman-migration-assistant/ru/)
+· [简体中文](https://shadowmoon6868.github.io/postman-migration-assistant/zh/)
+· [Tiếng Việt](https://shadowmoon6868.github.io/postman-migration-assistant/vi/)
 
-## Video và ví dụ
+The plugin analyzes collections locally, reads optional environment and
+globals files, identifies dependencies, and exports `scenario.http`,
+`independent.http`, environment files, a compatibility script, and a
+migration report. Requests without a safe mapping are flagged for manual
+review. The technical preview targets IntelliJ IDEA Ultimate 2025.3.2;
+see the [compatibility matrix](site/docs/COMPATIBILITY.md).
 
-Website có video minh họa 18 giây, phụ đề tiếng Việt, lời dẫn dạng văn bản
-và ví dụ trước/sau import dựa trên
-[fixture CRUD](site/qa/fixtures/crud.postman_collection.json).
-Video được dựng từ fixture; không phải bằng chứng chạy giao diện IntelliJ.
+The site includes an 18-second illustrated video with four caption languages,
+a written transcript for each language, and before-and-after code from a
+[controlled CRUD fixture](site/qa/fixtures/crud.postman_collection.json).
+The video is not a native IntelliJ screen recording.
 
-Con số 97,2% là độ phủ chuyển đổi **tĩnh** trên 20 collection công khai,
-không phải tỷ lệ request chạy thành công. Xem
-[phương pháp đo](site/docs/CORPUS-BENCHMARK.md).
+The 97.2% figure is **static conversion coverage** across 20 public
+collections, not a runtime request success rate. Read the
+[methodology](site/docs/CORPUS-BENCHMARK.md).
 
-## Nhận bản beta
+For beta access, email
+[shadowmoon6868@gmail.com](mailto:shadowmoon6868@gmail.com?subject=Postman%20Migration%20Assistant%20beta).
+Do not send tokens, secrets, or customer data by email.
 
-Liên hệ [shadowmoon6868@gmail.com](mailto:shadowmoon6868@gmail.com?subject=Postman%20Migration%20Assistant%20beta).
-Không gửi token, secret hoặc dữ liệu khách hàng qua email.
+## Updating the site
 
-## Cập nhật website
+The editable source is in `site/`. English at `/` is the default;
+other languages have separate static routes. To add a language, copy
+`site/locales/en.json` to `site/locales/<code>.json`, set its locale
+metadata, and translate every field. The build automatically creates the
+route, language switch, captions, canonical/hreflang tags, localized FAQ
+schema, sitemap entry, and `llms.txt` link.
 
-Source ở `site/`; các file tĩnh đã build nằm ở gốc repository và GitHub
-Pages xuất bản từ nhánh `main`, thư mục `/`. Token Git hiện tại không có
-quyền tạo workflow nên việc cập nhật site là một bước build và commit rõ
-ràng. Build không cần npm package. Sau khi clone:
+This repository publishes the built files at its root from the `main`
+branch. The current Git credential cannot create or update GitHub Actions
+workflow files, so deployment uses a verified static build:
 
-```bash
-SITE_URL=http://localhost:4173/ REPO_URL=https://github.com/Shadowmoon6868/postman-migration-assistant node site/build.mjs
+```powershell
+$env:SITE_URL = "https://shadowmoon6868.github.io/postman-migration-assistant/"
+$env:REPO_URL = "https://github.com/Shadowmoon6868/postman-migration-assistant"
+node site/build.mjs
 node site/test.mjs
-python -m http.server 4173 --directory _site
+node site/sync-root.mjs
+git add .
+git commit -m "Update site"
+git push
 ```
 
-Khi đã sẵn sàng xuất bản thay đổi, build với `SITE_URL` và `REPO_URL`
-production, chạy `node site/test.mjs`, rồi chạy
-`node site/sync-root.mjs` để chép output đã kiểm tra vào gốc repository.
-Cuối cùng commit và push nhánh `main`.
+The site has no tracking script or third-party font. It includes a sitemap,
+robots.txt, Open Graph metadata, JSON-LD, and llms.txt.
 
-Thiết kế dùng CSS tĩnh, font hệ thống và không có script theo dõi. Sitemap,
-robots, metadata Open Graph, JSON-LD và `llms.txt` được tạo khi build.
-
-Postman Migration Assistant là công cụ độc lập, không liên kết hoặc được
-chứng nhận bởi Postman hay JetBrains.
+Postman Migration Assistant is an independent tool, not affiliated with or
+endorsed by Postman or JetBrains.

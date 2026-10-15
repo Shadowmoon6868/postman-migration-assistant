@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1020">
+  <meta name="description" content="将 Postman Collection v2.0/v2.1 转换为 IntelliJ HTTP Client 请求。查看依赖关系、保留环境变量，并比较导入前后的示例。">
+  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="Postman Migration Assistant | 将集合导入 IntelliJ HTTP Client">
+  <meta property="og:description" content="将 Postman Collection v2.0/v2.1 转换为 IntelliJ HTTP Client 请求。查看依赖关系、保留环境变量，并比较导入前后的示例。">
+  <meta property="og:image" content="https://shadowmoon6868.github.io/postman-migration-assistant/assets/og-card.png">
+  <meta property="og:url" content="https://shadowmoon6868.github.io/postman-migration-assistant/zh/">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://shadowmoon6868.github.io/postman-migration-assistant/zh/">
+  <link rel="alternate" hreflang="en" href="https://shadowmoon6868.github.io/postman-migration-assistant/">
+  <link rel="alternate" hreflang="ru" href="https://shadowmoon6868.github.io/postman-migration-assistant/ru/">
+  <link rel="alternate" hreflang="vi" href="https://shadowmoon6868.github.io/postman-migration-assistant/vi/">
+  <link rel="alternate" hreflang="zh-CN" href="https://shadowmoon6868.github.io/postman-migration-assistant/zh/">
+  <link rel="alternate" hreflang="x-default" href="https://shadowmoon6868.github.io/postman-migration-assistant/">
+  <link rel="icon" href="../assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/site.css">
+  <title>Postman Migration Assistant | 将集合导入 IntelliJ HTTP Client</title>
+  <script type="application/ld+json" id="structured-data">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"https://shadowmoon6868.github.io/postman-migration-assistant/#website","url":"https://shadowmoon6868.github.io/postman-migration-assistant/","name":"Postman Migration Assistant","inLanguage":"zh-CN"},{"@type":"SoftwareApplication","@id":"https://shadowmoon6868.github.io/postman-migration-assistant/#software","name":"Postman Migration Assistant","url":"https://shadowmoon6868.github.io/postman-migration-assistant/zh/","applicationCategory":"DeveloperApplication","operatingSystem":"Windows","softwareVersion":"0.9.1 technical preview","description":"将 Postman Collection v2.0/v2.1 转换为 IntelliJ HTTP Client 请求。查看依赖关系、保留环境变量，并比较导入前后的示例。","requirements":"IntelliJ IDEA Ultimate 2025.3.2 (IU-253.30387.90)","inLanguage":"zh-CN"},{"@type":"VideoObject","@id":"https://shadowmoon6868.github.io/postman-migration-assistant/#demo","name":"清楚展示输入、输出和限制。","description":"示例使用仓库中的四请求 CRUD 测试集合。视频根据测试数据制作，并非 IntelliJ 界面录屏。","thumbnailUrl":"https://shadowmoon6868.github.io/postman-migration-assistant/assets/demo-poster.png","contentUrl":"https://shadowmoon6868.github.io/postman-migration-assistant/assets/import-demo.mp4","uploadDate":"2026-10-15T00:00:00+07:00","duration":"PT18S","inLanguage":"en","transcript":"0–4 秒：CRUD 集合包含 Login、Create、Read 和 Cleanup。4–8 秒：分析发现 token 和 customerId 依赖。8–13 秒：插件导出 scenario.http、环境文件和报告。13–18 秒：从 Login 开始运行，并在 IntelliJ HTTP Client 中验证结果。这是基于测试数据的示意视频，不是原生界面运行证明。"},{"@type":"FAQPage","@id":"https://shadowmoon6868.github.io/postman-migration-assistant/zh/#faq","mainEntity":[{"@type":"Question","name":"这个插件有什么用途？","acceptedAnswer":{"@type":"Answer","text":"Postman Migration Assistant 分析 Postman Collection v2.0/v2.1，并导出 IntelliJ HTTP Client 请求、环境文件、兼容脚本、来源映射及待检查事项报告。"}},{"@type":"Question","name":"需要重新导出 v2.0 集合吗？","acceptedAnswer":{"@type":"Answer","text":"不需要。插件接受 v2.0 和 v2.1；v2.0 在内存中规范化，原始文件不会被修改。"}},{"@type":"Question","name":"为什么有些请求必须从头运行？","acceptedAnswer":{"@type":"Answer","text":"scenario.http 中的请求可能使用前面生成的 token、ID 或变量，因此必须按顺序执行。independent.http 中的请求可以单独或并行运行。"}},{"@type":"Question","name":"97.2% 表示请求运行成功率吗？","acceptedAnswer":{"@type":"Answer","text":"不是。这是静态转换覆盖率：20 个公开集合的 2,582 个可执行请求中有 2,510 个可转换。仍须在目标 API 上进行运行时测试。"}},{"@type":"Question","name":"集合会上传到服务器吗？","acceptedAnswer":{"@type":"Answer","text":"导入期间不会。分析和导出在本地执行。运行生成的 .http 文件时，IntelliJ HTTP Client 才会向您配置的 API 发送请求。"}},{"@type":"Question","name":"支持 GraphQL、gRPC 和 WebSocket 吗？","acceptedAnswer":{"@type":"Answer","text":"有条件支持。GraphQL 需要 query；gRPC 需要 URL、service/method 和 message；WebSocket 需要 URL 与消息序列。信息不完整的请求会标记为人工检查。"}},{"@type":"Question","name":"目前面向哪个 IDE 版本？","acceptedAnswer":{"@type":"Answer","text":"技术预览版面向 IntelliJ IDEA Ultimate 2025.3.2 (IU-253.30387.90)。请查看兼容性矩阵中的最新证据。尚未宣布支持更广泛的 IDE 或操作系统。"}}]}]}</script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳转到正文</a>
+  <header class="site-header"><div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Postman Migration Assistant，返回首页"><img src="../assets/icon.svg" alt="" width="34" height="34"><span>Postman <b>Migration Assistant</b></span></a>
+    <nav aria-label="主导航"><a href="#workflow">工作流程</a><a href="#demo">演示</a><a href="#features">功能</a><a href="#faq">常见问题</a></nav>
+    <div class="nav-end"><div class="language-switch" aria-label="选择语言"><a href="https://shadowmoon6868.github.io/postman-migration-assistant/" lang="en" hreflang="en" title="English">EN</a><a href="https://shadowmoon6868.github.io/postman-migration-assistant/ru/" lang="ru" hreflang="ru" title="Русский">RU</a><a href="https://shadowmoon6868.github.io/postman-migration-assistant/vi/" lang="vi" hreflang="vi" title="Tiếng Việt">VI</a><a href="https://shadowmoon6868.github.io/postman-migration-assistant/zh/" lang="zh-CN" hreflang="zh-CN" title="简体中文" aria-current="page">中文</a></div><a class="button button-small button-ghost" href="#contact">申请测试 <span aria-hidden="true">↗</span></a></div>
+  </div></header>
+  <main id="main">
+    <section class="hero wrap" id="top"><div class="hero-copy">
+      <p class="eyebrow"><span class="status-dot"></span> IntelliJ IDEA 2025.3.2 · 技术预览版</p>
+      <h1>将 Postman 集合迁移到 <em>IntelliJ HTTP Client。</em><br>清楚了解已转换内容和待检查内容。</h1>
+      <p class="lede">导入 v2.0 或 v2.1 集合，选择环境，查看请求依赖，然后导出可在 IDE 中使用的 .http 文件。报告会指出无法安全映射的部分。</p>
+      <div class="hero-actions"><a class="button button-primary" href="#contact">申请测试资格 <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="#demo">查看转换前后 <span aria-hidden="true">↓</span></a></div>
+      <p class="hero-note">本地分析与导出 · 不修改原始集合 · 导入期间不调用 API</p>
+    </div><div class="hero-art" role="img" aria-label="示意图：分析 Postman 集合并导出 IntelliJ HTTP Client 文件">
+      <div class="art-top"><span class="window-dots"><i></i><i></i><i></i></span><span>migration-preview</span><span class="art-badge">OFFLINE</span></div>
+      <div class="art-flow"><div class="flow-node"><span class="node-icon">{ }</span><strong>collection.json</strong><small>v2.0 / v2.1</small></div><div class="flow-arrow">→<small>Analyze</small></div><div class="flow-node highlight"><span class="node-icon">→_</span><strong>HTTP Client</strong><small>.http + report</small></div></div>
+      <div class="art-list"><div><span class="file-icon purple">◆</span><span>scenario.http</span><small>按顺序运行</small></div><div><span class="file-icon cyan">↗</span><span>independent.http</span><small>单独运行</small></div><div><span class="file-icon amber">◫</span><span>migration-report.md</span><small>需要检查</small></div></div>
+      <div class="art-footer"><span class="mini-dot"></span> 可核查的导入流程 <span>↗</span></div>
+    </div></section>
+    <section class="proof-band" aria-label="转换覆盖率数据"><div class="wrap proof-grid"><div><strong>97.2%</strong><span>请求可静态转换</span></div><div><strong>20</strong><span>个公开集合参与测量</span></div><div><strong>2,582</strong><span>个可执行请求纳入样本</span></div><p>这是 v0.9.0 的静态转换覆盖率，不是请求运行成功率。其余 72 个请求需要人工检查。 <a href="https://github.com/Shadowmoon6868/postman-migration-assistant/blob/main/site/docs/CORPUS-BENCHMARK.md">查看测量方法 ↗</a></p></div></section>
+    <section class="section wrap" id="workflow"><div class="section-intro"><p class="eyebrow">工作流程</p><h2>四步完成从导出 JSON 到可验证请求的迁移。</h2><p>保留到原始集合的追溯信息，查看报告后再决定如何运行生成的请求。</p></div><div class="steps"><article><span class="step-number">01</span><h3>选择输入</h3><p>选择 v2.0/v2.1 集合 JSON，必要时加入环境和全局变量。v2.0 在内存中规范化，原文件保持不变。</p></article><article><span class="step-number">02</span><h3>分析</h3><p>查看可转换请求、阻碍项、脚本和变量依赖图。此步骤不会调用您的 API。</p></article><article><span class="step-number">03</span><h3>选择策略</h3><p>保留集合顺序、拆分独立请求，或仅导出报告。预览会说明为何某些请求必须按顺序运行。</p></article><article><span class="step-number">04</span><h3>导出并验证</h3><p>从第一个请求开始运行 scenario.http。independent.http 中的请求可单独运行。需要行为一致性时再进行运行时比较。</p></article></div></section>
+    <section class="section demo-section" id="demo"><div class="wrap">
+      <div class="section-intro"><p class="eyebrow">基于测试数据的演示</p><h2>清楚展示输入、输出和限制。</h2><p>示例使用仓库中的四请求 CRUD 测试集合。视频根据测试数据制作，并非 IntelliJ 界面录屏。</p></div>
+      <div class="video-shell"><video controls preload="metadata" poster="../assets/demo-poster.png" width="1280" height="720" aria-describedby="video-description">
+        <source src="../assets/import-demo.mp4" type="video/mp4">
+        <track default kind="captions" srclang="zh-CN" label="简体中文" src="../assets/import-demo.zh.vtt">
+        <track kind="captions" srclang="en" label="English" src="../assets/import-demo.en.vtt">
+        <track kind="captions" srclang="ru" label="Русский" src="../assets/import-demo.ru.vtt">
+        <track kind="captions" srclang="vi" label="Tiếng Việt" src="../assets/import-demo.vi.vtt">
+        您的浏览器不支持视频。 <a href="../assets/import-demo.mp4">下载 MP4</a>.
+      </video><div class="video-caption" id="video-description"><span>01：从 JSON 到 .http</span><a href="#transcript">阅读视频文字说明 ↗</a></div></div>
+      <div class="comparison"><article class="code-card"><div class="code-head"><span><i class="code-dot orange"></i> 导入前</span><small>CRUD collection v2.1 · 节选</small></div><pre><code>{
+  "name": "Login",
+  "request": {
+    "method": "POST",
+    "url": "{{baseUrl}}/login",
+    "body": {
+      "mode": "raw",
+      "raw": "{\"username\":\"fixture\"}"
+    }
+  },
+  "event": [{
+    "listen": "test",
+    "script": { "exec": [
+      "pm.collectionVariables.set(",
+      "  'token', pm.response.json().token)"
+    ]}
+  }]
+}</code></pre></article><div class="compare-arrow" aria-hidden="true">→</div><article class="code-card"><div class="code-head"><span><i class="code-dot green"></i> 导入后</span><small>scenario.http · 节选</small></div><pre><code>### Login
+POST {{pma_base_url}}/login
+Content-Type: application/json
+
+{"username":"fixture"}
+
+&gt; {%
+  bridge.pm.collectionVariables.set(
+    "token", bridge.pm.response.json().token
+  );
+  bridge.finish();
+%}
+
+### Create
+POST {{pma_base_url}}/customers
+Authorization: Bearer {{pma_token}}
+
+{"name":"Ada"}</code></pre></article></div>
+      <p class="example-note">为便于阅读，代码经过删减；真实的响应钩子还会导入并初始化 bridge。输出包还包含 scripts/compat.js、环境文件和报告。Create 使用 Login 生成的 token，因此两者位于 scenario.http 并须按顺序运行。 <a href="https://github.com/Shadowmoon6868/postman-migration-assistant/blob/main/site/qa/fixtures/crud.postman_collection.json">查看原始测试集合 ↗</a></p>
+      <details class="transcript" id="transcript"><summary>视频文字说明与场景</summary><p>0–4 秒：CRUD 集合包含 Login、Create、Read 和 Cleanup。4–8 秒：分析发现 token 和 customerId 依赖。8–13 秒：插件导出 scenario.http、环境文件和报告。13–18 秒：从 Login 开始运行，并在 IntelliJ HTTP Client 中验证结果。这是基于测试数据的示意视频，不是原生界面运行证明。</p></details>
+    </div></section>
+    <section class="section wrap" id="features"><div class="section-intro"><p class="eyebrow">功能</p><h2>谨慎转换，并保留后续工作所需的上下文。</h2></div><div class="feature-grid"><article><span class="feature-mark" aria-hidden="true">↗</span><h3>独立请求保持独立</h3><p>依赖图将独立请求与需要前序结果的步骤分开。您也可以保留完整顺序或仅生成报告。</p></article><article><span class="feature-mark" aria-hidden="true">◈</span><h3>环境和脚本</h3><p>映射已验证的变量作用域和 pm.* API。敏感值写入加入 .gitignore 的私有环境文件。</p></article><article><span class="feature-mark" aria-hidden="true">⌘</span><h3>不悄悄降级</h3><p>只有元数据充足时才导出 GraphQL、gRPC 和 WebSocket。无法保留语义的内容连同来源位置写入 manual-review.md。</p></article><article><span class="feature-mark" aria-hidden="true">◎</span><h3>迁移后差异比较</h3><p>Newman 与 IntelliJ 跟踪适配器可比较方法、URL、请求头、请求体、状态和断言；敏感值以指纹形式隐藏。</p></article><article><span class="feature-mark" aria-hidden="true">▣</span><h3>集成在 IDE 中</h3><p>通过 Tools → Postman Migration Assistant 或 Ctrl+Alt+Shift+P 打开。预览、依赖图、输出和报告集中在同一流程。</p></article><article><span class="feature-mark" aria-hidden="true">◇</span><h3>离线分析</h3><p>集合读取、分析和导出均在本地进行。导入流程不会调用 Postman、JetBrains 或开发者服务器。</p></article></div><div class="limitation"><span>明确的边界</span><p>不支持的 JavaScript、复杂网络或异步行为，以及不完整的协议元数据可能需要人工处理。可转换不代表已在您的 API 上正确运行。兼容性仅针对 <a href="https://github.com/Shadowmoon6868/postman-migration-assistant/blob/main/site/docs/COMPATIBILITY.md">兼容性矩阵中列出的目标版本 ↗</a>.</p></div></section>
+    <section class="section install-section" id="install"><div class="wrap install-grid"><div><p class="eyebrow">开始使用</p><h2>用您自己的真实集合试用。</h2><p>技术预览版面向 IntelliJ IDEA Ultimate 2025.3.2。请联系我们参加测试、获取构建包，并通过 Settings → Plugins → Install Plugin from Disk 安装。</p><a class="button button-primary" href="mailto:shadowmoon6868@gmail.com?subject=Postman%20Migration%20Assistant%20beta">申请测试资格 <span aria-hidden="true">↗</span></a></div><ol><li>从 Postman 导出集合和环境。</li><li>在 IntelliJ IDEA 中打开项目，选择 Tools → Postman Migration Assistant。</li><li>选择文件，点击 Analyze，查看阻碍项并选择导出策略。</li><li>运行适合的 .http 文件，核对响应和断言。</li></ol></div></section>
+    <section class="section wrap faq-section" id="faq"><div class="section-intro"><p class="eyebrow">常见问题</p><h2>帮助您快速判断的简明答案。</h2></div><div class="faq-list"><details><summary>这个插件有什么用途？</summary><p>Postman Migration Assistant 分析 Postman Collection v2.0/v2.1，并导出 IntelliJ HTTP Client 请求、环境文件、兼容脚本、来源映射及待检查事项报告。</p></details><details><summary>需要重新导出 v2.0 集合吗？</summary><p>不需要。插件接受 v2.0 和 v2.1；v2.0 在内存中规范化，原始文件不会被修改。</p></details><details><summary>为什么有些请求必须从头运行？</summary><p>scenario.http 中的请求可能使用前面生成的 token、ID 或变量，因此必须按顺序执行。independent.http 中的请求可以单独或并行运行。</p></details><details><summary>97.2% 表示请求运行成功率吗？</summary><p>不是。这是静态转换覆盖率：20 个公开集合的 2,582 个可执行请求中有 2,510 个可转换。仍须在目标 API 上进行运行时测试。</p></details><details><summary>集合会上传到服务器吗？</summary><p>导入期间不会。分析和导出在本地执行。运行生成的 .http 文件时，IntelliJ HTTP Client 才会向您配置的 API 发送请求。</p></details><details><summary>支持 GraphQL、gRPC 和 WebSocket 吗？</summary><p>有条件支持。GraphQL 需要 query；gRPC 需要 URL、service/method 和 message；WebSocket 需要 URL 与消息序列。信息不完整的请求会标记为人工检查。</p></details><details><summary>目前面向哪个 IDE 版本？</summary><p>技术预览版面向 IntelliJ IDEA Ultimate 2025.3.2 (IU-253.30387.90)。请查看兼容性矩阵中的最新证据。尚未宣布支持更广泛的 IDE 或操作系统。</p></details></div></section>
+    <section class="contact-section" id="contact"><div class="wrap contact-inner"><div><p class="eyebrow">封闭测试</p><h2>带来一个复杂集合，看看能转换到什么程度。</h2><p>请说明集合类型、IDE 版本和迁移目标。请勿通过邮件发送 token、密钥或客户数据。</p></div><div class="contact-actions"><a class="button button-light" href="mailto:shadowmoon6868@gmail.com?subject=Postman%20Migration%20Assistant%20beta">发送邮件 ↗</a><a class="email-link" href="mailto:shadowmoon6868@gmail.com">shadowmoon6868@gmail.com</a></div></div></section>
+  </main>
+  <footer><div class="wrap footer-inner"><div><a class="brand" href="#top"><img src="../assets/icon.svg" alt="" width="28" height="28"><span>Postman <b>Migration Assistant</b></span></a><p>独立迁移工具，与 Postman 或 JetBrains 无关联，也未获得其认证。</p></div><div><a href="#workflow">工作流程</a><a href="#demo">演示</a><a href="#faq">常见问题</a><a href="https://github.com/Shadowmoon6868/postman-migration-assistant/blob/main/README.md">技术文档 ↗</a></div><small>© 2026 Postman Migration Assistant</small></div></footer>
+</body>
+</html>

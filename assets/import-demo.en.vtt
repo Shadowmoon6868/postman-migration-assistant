@@ -1,0 +1,13 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:04.000
+The CRUD v2.1 collection contains Login, Create, Read, and Cleanup.
+
+00:00:04.000 --> 00:00:08.000
+Analyze finds token and customerId dependencies between requests.
+
+00:00:08.000 --> 00:00:13.000
+The plugin exports scenario.http, environments, and a report.
+
+00:00:13.000 --> 00:00:18.000
+Run from Login and verify results in IntelliJ HTTP Client.

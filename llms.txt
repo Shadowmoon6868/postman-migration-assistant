@@ -1,12 +1,14 @@
 # Postman Migration Assistant
 
-> Công cụ phân tích offline Postman Collection v2.0/v2.1 và xuất bundle IntelliJ HTTP Client. Bản technical preview nhắm IntelliJ IDEA Ultimate 2025.3.2.
+> Offline Postman Collection v2.0/v2.1 migration to IntelliJ HTTP Client. Technical preview targets IntelliJ IDEA Ultimate 2025.3.2.
 
-- Trang giới thiệu: https://shadowmoon6868.github.io/postman-migration-assistant/
-- Hướng dẫn và liên hệ: https://github.com/Shadowmoon6868/postman-migration-assistant/blob/main/README.md
+- English: https://shadowmoon6868.github.io/postman-migration-assistant/
+- Русский: https://shadowmoon6868.github.io/postman-migration-assistant/ru/
+- Tiếng Việt: https://shadowmoon6868.github.io/postman-migration-assistant/vi/
+- 简体中文: https://shadowmoon6868.github.io/postman-migration-assistant/zh/
+- Documentation: https://github.com/Shadowmoon6868/postman-migration-assistant/blob/main/README.md
 - Compatibility matrix: https://github.com/Shadowmoon6868/postman-migration-assistant/blob/main/site/docs/COMPATIBILITY.md
-- Phương pháp đo corpus: https://github.com/Shadowmoon6868/postman-migration-assistant/blob/main/site/docs/CORPUS-BENCHMARK.md
-- Fixture minh họa: https://github.com/Shadowmoon6868/postman-migration-assistant/blob/main/site/qa/fixtures/crud.postman_collection.json
-- Liên hệ: shadowmoon6868@gmail.com
+- Corpus methodology: https://github.com/Shadowmoon6868/postman-migration-assistant/blob/main/site/docs/CORPUS-BENCHMARK.md
+- Contact: shadowmoon6868@gmail.com
 
-Số 97,2% là chuyển đổi tĩnh, không chứng minh request chạy thành công.
+97.2% is static conversion coverage, not a runtime request success rate.

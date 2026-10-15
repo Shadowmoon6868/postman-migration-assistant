@@ -1,52 +1,120 @@
-import { cp, mkdir, readFile, writeFile } from 'node:fs/promises';
-import { resolve } from 'node:path';
+import { cp, mkdir, readFile, readdir, writeFile } from 'node:fs/promises';
+import { basename, resolve } from 'node:path';
 
 const root = resolve(import.meta.dirname, '..');
 const source = resolve(root, 'site');
 const output = resolve(root, '_site');
 const repository = process.env.GITHUB_REPOSITORY || '';
 const repoUrl = process.env.REPO_URL || (repository ? `https://github.com/${repository}` : 'https://github.com/');
-const siteUrl = process.env.SITE_URL || (repository
+const rawSiteUrl = process.env.SITE_URL || (repository
   ? `https://${repository.split('/')[0]}.github.io/${repository.split('/')[1]}/`
   : 'http://localhost:4173/');
-const canonical = new URL(siteUrl).href;
+const siteUrl = new URL(rawSiteUrl.endsWith('/') ? rawSiteUrl : `${rawSiteUrl}/`).href;
+const template = await readFile(resolve(source, 'index.html'), 'utf8');
+const localeDir = resolve(source, 'locales');
+const localeFiles = (await readdir(localeDir)).filter(name => name.endsWith('.json')).sort();
+const locales = await Promise.all(localeFiles.map(async name => {
+  const data = JSON.parse(await readFile(resolve(localeDir, name), 'utf8'));
+  if (data.code !== basename(name, '.json') || !/^[a-z]{2,3}$/.test(data.code)) {
+    throw new Error(`Invalid locale code in ${name}`);
+  }
+  return data;
+}));
+const english = locales.find(locale => locale.code === 'en');
+if (!english) throw new Error('locales/en.json is required as the default language');
 
+function assertSameShape(reference, translation, location) {
+  if (Array.isArray(reference)) {
+    if (!Array.isArray(translation) || reference.length !== translation.length) throw new Error(`Locale mismatch: ${location}`);
+    reference.forEach((entry, index) => assertSameShape(entry, translation[index], `${location}[${index}]`));
+  } else if (reference && typeof reference === 'object') {
+    if (!translation || typeof translation !== 'object' || Array.isArray(translation)) throw new Error(`Locale mismatch: ${location}`);
+    for (const key of Object.keys(reference)) {
+      if (!(key in translation)) throw new Error(`Missing translation: ${location}.${key}`);
+      assertSameShape(reference[key], translation[key], `${location}.${key}`);
+    }
+  } else if (typeof translation !== typeof reference || !String(translation).trim()) {
+    throw new Error(`Invalid translation: ${location}`);
+  }
+}
+for (const locale of locales) assertSameShape(english, locale, locale.code);
+const esc = value => String(value).replace(/[&<>"']/g, char => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+})[char]);
+const localeUrl = locale => `${siteUrl}${locale.code === 'en' ? '' : `${locale.code}/`}`;
+const hrefs = locales.map(locale => `<link rel="alternate" hreflang="${esc(locale.htmlLang)}" href="${localeUrl(locale)}">`).join('\n  ')
+  + `\n  <link rel="alternate" hreflang="x-default" href="${siteUrl}">`;
+const timecodes = [
+  ['00:00:00.000', '00:00:04.000'],
+  ['00:00:04.000', '00:00:08.000'],
+  ['00:00:08.000', '00:00:13.000'],
+  ['00:00:13.000', '00:00:18.000']
+];
 await mkdir(output, { recursive: true });
 await cp(resolve(source, 'assets'), resolve(output, 'assets'), { recursive: true });
-const template = await readFile(resolve(source, 'index.html'), 'utf8');
-const faq = [
-  ['Plugin này làm gì?', 'Postman Migration Assistant phân tích Postman Collection v2.0/v2.1 và xuất request cho IntelliJ HTTP Client cùng environment, script tương thích, source map và báo cáo những phần cần rà soát.'],
-  ['Tôi có cần export collection v2.1 lại từ Postman không?', 'Không. Plugin nhận v2.0 hoặc v2.1; v2.0 được chuẩn hóa trong bộ nhớ và file gốc không bị sửa.'],
-  ['Vì sao một số request phải chạy từ đầu file?', 'Request trong scenario.http có thể dùng token, ID hoặc biến do request trước tạo. Chạy chúng theo thứ tự. Request trong independent.http có thể chạy riêng hoặc song song.'],
-  ['97,2% có nghĩa là 97,2% request chạy thành công?', 'Không. Đây là tỷ lệ chuyển đổi tĩnh của 2.510 trong 2.582 request thực thi thuộc 20 collection công khai. Cần kiểm thử runtime trên API đích để xác nhận hành vi.'],
-  ['Dữ liệu collection có được tải lên máy chủ không?', 'Không trong luồng import. Phân tích và xuất file diễn ra cục bộ. Khi bạn tự chạy file .http, IntelliJ HTTP Client gửi request đến API mà bạn cấu hình.'],
-  ['Plugin có hỗ trợ GraphQL, gRPC và WebSocket không?', 'Có điều kiện. GraphQL cần query; gRPC cần URL, service/method và message; WebSocket cần URL và message sequence. Thiếu dữ liệu cần thiết thì request được chỉ định rà soát thủ công.'],
-  ['Hiện dùng trên IDE nào?', 'Technical preview được nhắm tới IntelliJ IDEA Ultimate 2025.3.2 (build IU-253.30387.90). Xem compatibility matrix để biết bằng chứng kiểm thử mới nhất. Chưa có công bố hỗ trợ rộng cho các phiên bản hoặc hệ điều hành khác.']
-];
-const structuredData = {
-  '@context': 'https://schema.org',
-  '@graph': [
-    { '@type': 'WebSite', '@id': `${canonical}#website`, url: canonical, name: 'Postman Migration Assistant', inLanguage: 'vi-VN' },
-    { '@type': 'SoftwareApplication', '@id': `${canonical}#software`, name: 'Postman Migration Assistant', url: canonical,
-      applicationCategory: 'DeveloperApplication', operatingSystem: 'Windows',
-      softwareVersion: '0.9.1 technical preview',
-      description: 'Plugin chuyển Postman Collection v2.0/v2.1 thành bundle IntelliJ HTTP Client, môi trường và báo cáo phân tích.',
-      requirements: 'IntelliJ IDEA Ultimate 2025.3.2 (IU-253.30387.90)', inLanguage: 'vi-VN' },
-    { '@type': 'VideoObject', '@id': `${canonical}#demo`, name: 'Minh họa import Postman Collection vào IntelliJ HTTP Client',
-      description: 'Video minh họa từ fixture CRUD kiểm thử: phân tích phụ thuộc và xuất scenario.http.',
-      thumbnailUrl: `${canonical}assets/demo-poster.png`, contentUrl: `${canonical}assets/import-demo.mp4`,
-      uploadDate: '2026-10-15T00:00:00+07:00', duration: 'PT18S', inLanguage: 'vi-VN' },
-    { '@type': 'FAQPage', '@id': `${canonical}#faq`, mainEntity: faq.map(([name, answer]) => ({
-      '@type': 'Question', name, acceptedAnswer: { '@type': 'Answer', text: answer }
-    })) }
-  ]
-};
-const html = template.replaceAll('__SITE_URL__', canonical)
-  .replaceAll('__REPO_URL__', repoUrl)
-  .replace('__STRUCTURED_DATA__', JSON.stringify(structuredData).replaceAll('<', '\\u003c'));
-await writeFile(resolve(output, 'index.html'), html);
-await writeFile(resolve(output, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${canonical}sitemap.xml\n`);
-await writeFile(resolve(output, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${canonical}</loc><lastmod>2026-10-15</lastmod></url></urlset>\n`);
-await writeFile(resolve(output, 'llms.txt'), `# Postman Migration Assistant\n\n> Công cụ phân tích offline Postman Collection v2.0/v2.1 và xuất bundle IntelliJ HTTP Client. Bản technical preview nhắm IntelliJ IDEA Ultimate 2025.3.2.\n\n- Trang giới thiệu: ${canonical}\n- Hướng dẫn và liên hệ: ${repoUrl}/blob/main/README.md\n- Compatibility matrix: ${repoUrl}/blob/main/site/docs/COMPATIBILITY.md\n- Phương pháp đo corpus: ${repoUrl}/blob/main/site/docs/CORPUS-BENCHMARK.md\n- Fixture minh họa: ${repoUrl}/blob/main/site/qa/fixtures/crud.postman_collection.json\n- Liên hệ: shadowmoon6868@gmail.com\n\nSố 97,2% là chuyển đổi tĩnh, không chứng minh request chạy thành công.\n`);
+
+for (const locale of locales) {
+  const canonical = localeUrl(locale);
+  const assetPrefix = locale.code === 'en' ? './' : '../';
+  const languageLinks = locales.map(option =>
+    `<a href="${localeUrl(option)}" lang="${esc(option.htmlLang)}" hreflang="${esc(option.htmlLang)}" title="${esc(option.label)}"${option.code === locale.code ? ' aria-current="page"' : ''}>${esc(option.shortLabel)}</a>`
+  ).join('');
+  const videoTracks = [locale, ...locales.filter(option => option.code !== locale.code)]
+    .map(option => `<track${option.code === locale.code ? ' default' : ''} kind="captions" srclang="${esc(option.htmlLang)}" label="${esc(option.label)}" src="${assetPrefix}assets/import-demo.${option.code}.vtt">`).join('\n        ');
+  const stepsHtml = locale.workflow.steps.map((step, index) =>
+    `<article><span class="step-number">${String(index + 1).padStart(2, '0')}</span><h3>${esc(step.title)}</h3><p>${esc(step.body)}</p></article>`).join('');
+  const marks = ['↗', '◈', '⌘', '◎', '▣', '◇'];
+  const featuresHtml = locale.features.items.map((item, index) =>
+    `<article><span class="feature-mark" aria-hidden="true">${marks[index % marks.length]}</span><h3>${esc(item.title)}</h3><p>${esc(item.body)}</p></article>`).join('');
+  const installStepsHtml = locale.install.steps.map(step => `<li>${esc(step)}</li>`).join('');
+  const faqHtml = locale.faq.map(item =>
+    `<details><summary>${esc(item.question)}</summary><p>${esc(item.answer)}</p></details>`).join('');
+  const structuredData = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      { '@type': 'WebSite', '@id': `${siteUrl}#website`, url: siteUrl, name: 'Postman Migration Assistant', inLanguage: locale.htmlLang },
+      { '@type': 'SoftwareApplication', '@id': `${siteUrl}#software`, name: 'Postman Migration Assistant', url: canonical,
+        applicationCategory: 'DeveloperApplication', operatingSystem: 'Windows', softwareVersion: '0.9.1 technical preview',
+        description: locale.seo.description, requirements: 'IntelliJ IDEA Ultimate 2025.3.2 (IU-253.30387.90)',
+        inLanguage: locale.htmlLang },
+      { '@type': 'VideoObject', '@id': `${siteUrl}#demo`, name: locale.demo.title,
+        description: locale.demo.intro, thumbnailUrl: `${siteUrl}assets/demo-poster.png`,
+        contentUrl: `${siteUrl}assets/import-demo.mp4`, uploadDate: '2026-10-15T00:00:00+07:00',
+        duration: 'PT18S', inLanguage: 'en', transcript: locale.demo.transcript },
+      { '@type': 'FAQPage', '@id': `${canonical}#faq`, mainEntity: locale.faq.map(item => ({
+        '@type': 'Question', name: item.question, acceptedAnswer: { '@type': 'Answer', text: item.answer }
+      })) }
+    ]
+  };
+  const raw = {
+    siteUrl, canonical, repoUrl, assetPrefix, hreflangLinks: hrefs, languageLinks,
+    videoTracks, stepsHtml, featuresHtml, installStepsHtml, faqHtml,
+    structuredData: JSON.stringify(structuredData).replaceAll('<', '\\u003c')
+  };
+  const html = template.replace(/\[\[([a-zA-Z][a-zA-Z0-9.]*)\]\]/g, (_, key) => {
+    if (key in raw) return raw[key];
+    const value = key.split('.').reduce((node, part) => node?.[part], locale);
+    if (typeof value !== 'string') throw new Error(`Unknown template key: ${key}`);
+    return esc(value);
+  });
+  if (html.includes('[[')) throw new Error(`Unresolved template marker in ${locale.code}`);
+  const destination = resolve(output, locale.code === 'en' ? '' : locale.code);
+  await mkdir(destination, { recursive: true });
+  await writeFile(resolve(destination, 'index.html'), html);
+  const captions = locale.demo.captions;
+  if (captions.length !== timecodes.length) throw new Error(`Expected four captions in ${locale.code}`);
+  const vtt = 'WEBVTT\n\n' + captions.map((caption, index) =>
+    `${timecodes[index][0]} --> ${timecodes[index][1]}\n${caption}\n`).join('\n');
+  await writeFile(resolve(output, 'assets', `import-demo.${locale.code}.vtt`), vtt);
+}
+
+const sitemapEntries = locales.map(locale => {
+  const alternates = locales.map(option =>
+    `<xhtml:link rel="alternate" hreflang="${option.htmlLang}" href="${localeUrl(option)}"/>`).join('');
+  return `<url><loc>${localeUrl(locale)}</loc><lastmod>2026-10-15</lastmod>${alternates}<xhtml:link rel="alternate" hreflang="x-default" href="${siteUrl}"/></url>`;
+}).join('');
+await writeFile(resolve(output, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">${sitemapEntries}</urlset>\n`);
+await writeFile(resolve(output, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${siteUrl}sitemap.xml\n`);
+await writeFile(resolve(output, 'llms.txt'), `# Postman Migration Assistant\n\n> Offline Postman Collection v2.0/v2.1 migration to IntelliJ HTTP Client. Technical preview targets IntelliJ IDEA Ultimate 2025.3.2.\n\n${locales.map(locale => `- ${locale.label}: ${localeUrl(locale)}`).join('\n')}\n- Documentation: ${repoUrl}/blob/main/README.md\n- Compatibility matrix: ${repoUrl}/blob/main/site/docs/COMPATIBILITY.md\n- Corpus methodology: ${repoUrl}/blob/main/site/docs/CORPUS-BENCHMARK.md\n- Contact: shadowmoon6868@gmail.com\n\n97.2% is static conversion coverage, not a runtime request success rate.\n`);
 await writeFile(resolve(output, '.nojekyll'), '');
-console.log(`Built ${output} for ${canonical}`);
+console.log(`Built ${locales.length} languages in ${output}; default: English; base: ${siteUrl}`);

@@ -44,10 +44,10 @@ def base_frame(second):
     d.ellipse((31, 25, 43, 37), fill="#ff858e")
     d.ellipse((52, 25, 64, 37), fill="#ffca78")
     d.ellipse((73, 25, 85, 37), fill="#77dfb3")
-    text(d, (110, 21), "POSTMAN MIGRATION ASSISTANT  /  MINH HỌA TỪ FIXTURE CRUD", F16, MUTED)
+    text(d, (110, 21), "POSTMAN MIGRATION ASSISTANT  /  CRUD FIXTURE ILLUSTRATION", F16, MUTED)
     d.rounded_rectangle((31, 673, 1249, 680), radius=4, fill="#2c3853")
     d.rounded_rectangle((31, 673, 31 + int(1218 * min(second / 18, 1)), 680), radius=4, fill=CYAN)
-    text(d, (32, 689), "Video minh họa dựng từ fixture kiểm thử; không phải quay màn hình IntelliJ", F12, "#95a5bf")
+    text(d, (32, 689), "Illustrated from a test fixture; not an IntelliJ screen recording", F12, "#95a5bf")
     return im, d
 
 def code_line(draw, x, y, prefix, value, color=WHITE):
@@ -58,8 +58,8 @@ def frame(second):
     im, d = base_frame(second)
     if second < 4:
         text(d, (55, 108), "01 / INPUT", F19, CYAN)
-        text(d, (55, 145), "Collection CRUD v2.1", F43)
-        text(d, (58, 210), "Bốn request với biến chia sẻ giữa các bước.", F19, MUTED)
+        text(d, (55, 145), "CRUD collection v2.1", F43)
+        text(d, (58, 210), "Four requests with values shared between steps.", F19, MUTED)
         card(d, (55, 275, 610, 625))
         text(d, (82, 299), "crud.postman_collection.json", F19, PURPLE)
         for idx, (method, name, path) in enumerate([
@@ -73,14 +73,14 @@ def frame(second):
             text(d, (205, y), name, F19)
             text(d, (318, y), path, F16, MUTED)
         card(d, (647, 275, 1225, 625), fill="#1c2543")
-        text(d, (680, 305), "Nguồn Postman", F24, PURPLE)
+        text(d, (680, 305), "Postman source", F24, PURPLE)
         code_line(d, 681, 370, "→", 'pm.collectionVariables.set("token", ...)')
         code_line(d, 681, 418, "→", 'pm.variables.set("customerId", ...)')
-        text(d, (680, 524), "Không cần export lại collection v2.1", F19, MUTED)
+        text(d, (680, 524), "The source collection stays unchanged", F19, MUTED)
     elif second < 8:
         text(d, (55, 108), "02 / ANALYZE", F19, CYAN)
-        text(d, (55, 145), "Nhìn thấy phụ thuộc", F43)
-        text(d, (58, 210), "Token và customerId quyết định thứ tự chạy.", F19, MUTED)
+        text(d, (55, 145), "See the dependencies", F43)
+        text(d, (58, 210), "Token and customerId determine the run order.", F19, MUTED)
         names = ["Login", "Create", "Read", "Cleanup"]
         for idx, name in enumerate(names):
             x = 54 + idx * 305
@@ -93,8 +93,8 @@ def frame(second):
         text(d, (284, 538), "token  →  Create     ·     customerId  →  Read / Cleanup", F19, CYAN)
     elif second < 13:
         text(d, (55, 108), "03 / EXPORT", F19, CYAN)
-        text(d, (55, 145), "Có đầu ra để rà soát", F43)
-        text(d, (58, 210), "Ví dụ này có chuỗi phụ thuộc nên xuất scenario.http.", F19, MUTED)
+        text(d, (55, 145), "Review the output", F43)
+        text(d, (58, 210), "This dependent sequence is exported to scenario.http.", F19, MUTED)
         card(d, (55, 280, 756, 625), fill="#101b30")
         text(d, (85, 306), "scenario.http", F24, PURPLE)
         text(d, (85, 366), "### Login", FM, MUTED)
@@ -108,20 +108,20 @@ def frame(second):
             text(d, (818, y + 19), label, F19)
     else:
         text(d, (55, 108), "04 / VERIFY", F19, CYAN)
-        text(d, (55, 145), "Chạy từ Login. Kiểm tra kết quả.", F43)
-        text(d, (58, 210), "Chuyển đổi tĩnh không thay thế bước thử trên API đích.", F19, MUTED)
+        text(d, (55, 145), "Run from Login. Verify.", F43)
+        text(d, (58, 210), "Static conversion does not replace testing against the target API.", F19, MUTED)
         card(d, (55, 285, 1225, 625), fill="#14213a")
         for idx, (name, detail) in enumerate([
-            ("Login", "Tạo token"),
-            ("Create", "Dùng token, tạo customerId"),
-            ("Read", "Dùng token + customerId"),
-            ("Cleanup", "Dọn dữ liệu")
+            ("Login", "Produces token"),
+            ("Create", "Uses token; produces customerId"),
+            ("Read", "Uses token + customerId"),
+            ("Cleanup", "Removes fixture data")
         ]):
             y = 313 + idx * 74
             d.ellipse((88, y + 7, 112, y + 31), fill=GREEN)
             text(d, (132, y), name, F24)
             text(d, (465, y + 4), detail, F19, MUTED)
-        text(d, (55, 637), "Xác minh runtime trong IntelliJ HTTP Client trước khi dùng với dịch vụ thật.", F16, ORANGE)
+        text(d, (55, 637), "Verify runtime behavior in IntelliJ HTTP Client before using a real service.", F16, ORANGE)
     return im
 
 poster = frame(10)
@@ -131,10 +131,10 @@ od = ImageDraw.Draw(og)
 od.ellipse((650, -260, 1450, 520), fill="#273462")
 od.rounded_rectangle((65, 62, 1135, 568), radius=36, fill="#17243c", outline="#796bc0", width=3)
 text(od, (105, 108), "POSTMAN MIGRATION ASSISTANT", F24, CYAN)
-text(od, (105, 205), "Từ collection", F64)
-text(od, (105, 285), "đến IntelliJ HTTP Client", F43, PURPLE)
+text(od, (105, 205), "From collections", F64)
+text(od, (105, 285), "to IntelliJ HTTP Client", F43, PURPLE)
 text(od, (105, 433), "Analyze  →  Export  →  Verify", F31, WHITE)
-text(od, (105, 516), "Technical preview · Import offline · Báo cáo rõ ràng", F19, MUTED)
+text(od, (105, 516), "Technical preview · Offline import · Clear reports", F19, MUTED)
 og.save(ASSETS / "og-card.png", optimize=True)
 
 binary = os.environ.get("FFMPEG_BINARY")

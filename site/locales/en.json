@@ -1,0 +1,128 @@
+{
+  "code": "en",
+  "htmlLang": "en",
+  "ogLocale": "en_US",
+  "label": "English",
+  "shortLabel": "EN",
+  "seo": {
+    "title": "Postman Migration Assistant | Import collections into IntelliJ HTTP Client",
+    "description": "Convert Postman Collection v2.0/v2.1 into IntelliJ HTTP Client requests. Review dependencies, preserve environments, and see a real before-and-after example."
+  },
+  "nav": {
+    "skip": "Skip to content",
+    "homeAria": "Postman Migration Assistant, home",
+    "aria": "Main navigation",
+    "workflow": "How it works",
+    "demo": "Demo",
+    "features": "Features",
+    "faq": "FAQ",
+    "beta": "Join the beta",
+    "languageAria": "Choose language"
+  },
+  "hero": {
+    "eyebrow": "IntelliJ IDEA 2025.3.2 · Technical preview",
+    "title1": "Bring Postman collections into",
+    "accent": "IntelliJ HTTP Client.",
+    "title2": "Know what converted and what needs review.",
+    "lede": "Import a v2.0 or v2.1 collection, select an environment, inspect request dependencies, then export .http files for your IDE. The report identifies anything that cannot be mapped safely.",
+    "cta": "Request beta access",
+    "secondary": "See before and after",
+    "note": "Local analysis and export · Original collection preserved · No API calls during import",
+    "artAria": "Illustration: Postman collection is analyzed and exported as IntelliJ HTTP Client files",
+    "scenario": "ordered",
+    "independent": "run separately",
+    "review": "review needed",
+    "artFooter": "An import you can inspect"
+  },
+  "proof": {
+    "aria": "Conversion benchmark",
+    "percentage": "97.2%",
+    "totalRequests": "2,582",
+    "convertible": "statically convertible requests",
+    "collections": "public collections measured",
+    "requests": "executable requests in the corpus",
+    "note": "This is static conversion coverage for v0.9.0, not a request execution success rate. The remaining 72 requests require manual review.",
+    "methodology": "Read the methodology"
+  },
+  "workflow": {
+    "eyebrow": "Workflow",
+    "title": "From exported JSON to requests you can verify, in four steps.",
+    "intro": "Keep a trace back to the source collection while deciding how the generated requests should run.",
+    "steps": [
+      { "title": "Select inputs", "body": "Choose a v2.0 or v2.1 collection JSON, plus environment and globals when needed. v2.0 is normalized in memory; the source file stays unchanged." },
+      { "title": "Analyze", "body": "Inspect convertible requests, blockers, scripts, and the variable dependency graph. This step does not call your API." },
+      { "title": "Choose a strategy", "body": "Keep collection order, split independent requests, or export only a report. The preview explains why a request needs an ordered run." },
+      { "title": "Export and verify", "body": "Run scenario.http from the first request. Run independent.http requests separately. Compare runtime behavior when parity matters." }
+    ]
+  },
+  "demo": {
+    "eyebrow": "Fixture-based demo",
+    "title": "See the input, output, and limits.",
+    "intro": "The example uses a four-request CRUD fixture in the repository. This illustrated video is generated from test data; it is not a recording of the IntelliJ UI.",
+    "videoFallback": "Your browser does not support this video.",
+    "downloadVideo": "Download the MP4",
+    "videoLabel": "01: From JSON to .http",
+    "readTranscript": "Read the video transcript",
+    "before": "Before import",
+    "beforeDetail": "CRUD collection v2.1 · excerpt",
+    "after": "After import",
+    "afterDetail": "scenario.http · excerpt",
+    "exampleNote": "Code is shortened for readability: the real response hook also imports and initializes the bridge. The bundle includes scripts/compat.js, environments, and a report. Create uses the token produced by Login, so these requests belong in scenario.http and must run in order.",
+    "fixtureLink": "View the source fixture",
+    "transcriptSummary": "Video transcript and scene descriptions",
+    "transcript": "0–4 seconds: the CRUD collection contains Login, Create, Read, and Cleanup. 4–8 seconds: Analyze finds token and customerId dependencies. 8–13 seconds: the plugin exports scenario.http, environment files, and a report. 13–18 seconds: run from Login and verify results in IntelliJ HTTP Client. This is a fixture-based illustration, not native UI execution evidence.",
+    "captions": [
+      "The CRUD v2.1 collection contains Login, Create, Read, and Cleanup.",
+      "Analyze finds token and customerId dependencies between requests.",
+      "The plugin exports scenario.http, environments, and a report.",
+      "Run from Login and verify results in IntelliJ HTTP Client."
+    ]
+  },
+  "features": {
+    "eyebrow": "Capabilities",
+    "title": "A careful migration with enough context to keep working.",
+    "items": [
+      { "title": "Independent requests stay independent", "body": "The dependency graph separates stand-alone requests from steps that consume earlier values. You can also preserve full order or produce only a report." },
+      { "title": "Environments and scripts", "body": "Mapped variable scopes and reviewed pm.* APIs are carried over. Sensitive values go into a private environment listed in .gitignore." },
+      { "title": "No silent downgrade", "body": "GraphQL, gRPC, and WebSocket are emitted only with sufficient metadata. Anything whose semantics cannot be preserved is listed in manual-review.md with a source pointer." },
+      { "title": "Differential comparison", "body": "Newman and IntelliJ trace adapters compare method, URL, headers, body, status, and assertions. Sensitive values are redacted with fingerprints." },
+      { "title": "Built into the IDE", "body": "Open Tools → Postman Migration Assistant or press Ctrl+Alt+Shift+P. Preview, dependency graph, output, and report stay in one workflow." },
+      { "title": "Offline analysis", "body": "Collection reading, analysis, and export happen locally. The import workflow does not call Postman, JetBrains, or a developer backend." }
+    ],
+    "limitTitle": "Clear boundaries",
+    "limitBody": "Unsupported JavaScript, complex network or async behavior, and incomplete protocol metadata may need manual work. A convertible request is not proof it ran correctly against your API. Compatibility is stated only for the tested target in the",
+    "matrixLink": "compatibility matrix"
+  },
+  "install": {
+    "eyebrow": "Get started",
+    "title": "Try one of your real collections.",
+    "intro": "The technical preview targets IntelliJ IDEA Ultimate 2025.3.2. Contact us to join the beta, receive a build, and install it through Settings → Plugins → Install Plugin from Disk.",
+    "cta": "Request beta access",
+    "steps": [
+      "Export the collection and environment from Postman.",
+      "Open your project in IntelliJ IDEA and choose Tools → Postman Migration Assistant.",
+      "Select the files, click Analyze, review blockers, and choose an export strategy.",
+      "Run the appropriate .http file and verify responses and assertions."
+    ]
+  },
+  "faqSection": { "eyebrow": "Frequently asked questions", "title": "Short answers for a clear decision." },
+  "faq": [
+    { "question": "What does this plugin do?", "answer": "Postman Migration Assistant analyzes Postman Collection v2.0/v2.1 and exports IntelliJ HTTP Client requests, environment files, compatible scripts, a source map, and a report of items needing review." },
+    { "question": "Do I need to export my v2.0 collection again?", "answer": "No. The plugin accepts v2.0 and v2.1. It normalizes v2.0 in memory without modifying the source file." },
+    { "question": "Why must some requests run from the beginning?", "answer": "Requests in scenario.http may use a token, ID, or variable produced earlier. Run them in order. Requests in independent.http can run separately or in parallel." },
+    { "question": "Does 97.2% mean requests succeed at runtime?", "answer": "No. It is static conversion coverage: 2,510 of 2,582 executable requests in 20 public collections. Runtime testing against the target API is still required." },
+    { "question": "Is my collection uploaded to a server?", "answer": "No, not during import. Analysis and export run locally. When you execute a generated .http file, IntelliJ HTTP Client sends requests to the API you configured." },
+    { "question": "Does it support GraphQL, gRPC, and WebSocket?", "answer": "Conditionally. GraphQL needs a query; gRPC needs a URL, service/method, and message; WebSocket needs a URL and message sequence. Incomplete requests are flagged for manual review." },
+    { "question": "Which IDE is currently targeted?", "answer": "The technical preview targets IntelliJ IDEA Ultimate 2025.3.2 (IU-253.30387.90). Check the compatibility matrix for current evidence. Broader IDE and operating-system support has not been announced." }
+  ],
+  "contact": {
+    "eyebrow": "Closed beta",
+    "title": "Bring a difficult collection. Let's see how far it converts.",
+    "intro": "Tell us your collection type, IDE version, and migration goal. Please do not email tokens, secrets, or customer data.",
+    "cta": "Contact by email"
+  },
+  "footer": {
+    "disclaimer": "An independent migration tool. Not affiliated with or endorsed by Postman or JetBrains.",
+    "docs": "Technical documentation"
+  }
+}

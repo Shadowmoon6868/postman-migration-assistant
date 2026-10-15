@@ -1,0 +1,128 @@
+{
+  "code": "zh",
+  "htmlLang": "zh-CN",
+  "ogLocale": "zh_CN",
+  "label": "简体中文",
+  "shortLabel": "中文",
+  "seo": {
+    "title": "Postman Migration Assistant | 将集合导入 IntelliJ HTTP Client",
+    "description": "将 Postman Collection v2.0/v2.1 转换为 IntelliJ HTTP Client 请求。查看依赖关系、保留环境变量，并比较导入前后的示例。"
+  },
+  "nav": {
+    "skip": "跳转到正文",
+    "homeAria": "Postman Migration Assistant，返回首页",
+    "aria": "主导航",
+    "workflow": "工作流程",
+    "demo": "演示",
+    "features": "功能",
+    "faq": "常见问题",
+    "beta": "申请测试",
+    "languageAria": "选择语言"
+  },
+  "hero": {
+    "eyebrow": "IntelliJ IDEA 2025.3.2 · 技术预览版",
+    "title1": "将 Postman 集合迁移到",
+    "accent": "IntelliJ HTTP Client。",
+    "title2": "清楚了解已转换内容和待检查内容。",
+    "lede": "导入 v2.0 或 v2.1 集合，选择环境，查看请求依赖，然后导出可在 IDE 中使用的 .http 文件。报告会指出无法安全映射的部分。",
+    "cta": "申请测试资格",
+    "secondary": "查看转换前后",
+    "note": "本地分析与导出 · 不修改原始集合 · 导入期间不调用 API",
+    "artAria": "示意图：分析 Postman 集合并导出 IntelliJ HTTP Client 文件",
+    "scenario": "按顺序运行",
+    "independent": "单独运行",
+    "review": "需要检查",
+    "artFooter": "可核查的导入流程"
+  },
+  "proof": {
+    "aria": "转换覆盖率数据",
+    "percentage": "97.2%",
+    "totalRequests": "2,582",
+    "convertible": "请求可静态转换",
+    "collections": "个公开集合参与测量",
+    "requests": "个可执行请求纳入样本",
+    "note": "这是 v0.9.0 的静态转换覆盖率，不是请求运行成功率。其余 72 个请求需要人工检查。",
+    "methodology": "查看测量方法"
+  },
+  "workflow": {
+    "eyebrow": "工作流程",
+    "title": "四步完成从导出 JSON 到可验证请求的迁移。",
+    "intro": "保留到原始集合的追溯信息，查看报告后再决定如何运行生成的请求。",
+    "steps": [
+      { "title": "选择输入", "body": "选择 v2.0/v2.1 集合 JSON，必要时加入环境和全局变量。v2.0 在内存中规范化，原文件保持不变。" },
+      { "title": "分析", "body": "查看可转换请求、阻碍项、脚本和变量依赖图。此步骤不会调用您的 API。" },
+      { "title": "选择策略", "body": "保留集合顺序、拆分独立请求，或仅导出报告。预览会说明为何某些请求必须按顺序运行。" },
+      { "title": "导出并验证", "body": "从第一个请求开始运行 scenario.http。independent.http 中的请求可单独运行。需要行为一致性时再进行运行时比较。" }
+    ]
+  },
+  "demo": {
+    "eyebrow": "基于测试数据的演示",
+    "title": "清楚展示输入、输出和限制。",
+    "intro": "示例使用仓库中的四请求 CRUD 测试集合。视频根据测试数据制作，并非 IntelliJ 界面录屏。",
+    "videoFallback": "您的浏览器不支持视频。",
+    "downloadVideo": "下载 MP4",
+    "videoLabel": "01：从 JSON 到 .http",
+    "readTranscript": "阅读视频文字说明",
+    "before": "导入前",
+    "beforeDetail": "CRUD collection v2.1 · 节选",
+    "after": "导入后",
+    "afterDetail": "scenario.http · 节选",
+    "exampleNote": "为便于阅读，代码经过删减；真实的响应钩子还会导入并初始化 bridge。输出包还包含 scripts/compat.js、环境文件和报告。Create 使用 Login 生成的 token，因此两者位于 scenario.http 并须按顺序运行。",
+    "fixtureLink": "查看原始测试集合",
+    "transcriptSummary": "视频文字说明与场景",
+    "transcript": "0–4 秒：CRUD 集合包含 Login、Create、Read 和 Cleanup。4–8 秒：分析发现 token 和 customerId 依赖。8–13 秒：插件导出 scenario.http、环境文件和报告。13–18 秒：从 Login 开始运行，并在 IntelliJ HTTP Client 中验证结果。这是基于测试数据的示意视频，不是原生界面运行证明。",
+    "captions": [
+      "CRUD v2.1 集合包含 Login、Create、Read 和 Cleanup。",
+      "分析识别请求之间的 token 和 customerId 依赖。",
+      "插件导出 scenario.http、环境文件和报告。",
+      "从 Login 开始运行，并在 IntelliJ HTTP Client 中验证结果。"
+    ]
+  },
+  "features": {
+    "eyebrow": "功能",
+    "title": "谨慎转换，并保留后续工作所需的上下文。",
+    "items": [
+      { "title": "独立请求保持独立", "body": "依赖图将独立请求与需要前序结果的步骤分开。您也可以保留完整顺序或仅生成报告。" },
+      { "title": "环境和脚本", "body": "映射已验证的变量作用域和 pm.* API。敏感值写入加入 .gitignore 的私有环境文件。" },
+      { "title": "不悄悄降级", "body": "只有元数据充足时才导出 GraphQL、gRPC 和 WebSocket。无法保留语义的内容连同来源位置写入 manual-review.md。" },
+      { "title": "迁移后差异比较", "body": "Newman 与 IntelliJ 跟踪适配器可比较方法、URL、请求头、请求体、状态和断言；敏感值以指纹形式隐藏。" },
+      { "title": "集成在 IDE 中", "body": "通过 Tools → Postman Migration Assistant 或 Ctrl+Alt+Shift+P 打开。预览、依赖图、输出和报告集中在同一流程。" },
+      { "title": "离线分析", "body": "集合读取、分析和导出均在本地进行。导入流程不会调用 Postman、JetBrains 或开发者服务器。" }
+    ],
+    "limitTitle": "明确的边界",
+    "limitBody": "不支持的 JavaScript、复杂网络或异步行为，以及不完整的协议元数据可能需要人工处理。可转换不代表已在您的 API 上正确运行。兼容性仅针对",
+    "matrixLink": "兼容性矩阵中列出的目标版本"
+  },
+  "install": {
+    "eyebrow": "开始使用",
+    "title": "用您自己的真实集合试用。",
+    "intro": "技术预览版面向 IntelliJ IDEA Ultimate 2025.3.2。请联系我们参加测试、获取构建包，并通过 Settings → Plugins → Install Plugin from Disk 安装。",
+    "cta": "申请测试资格",
+    "steps": [
+      "从 Postman 导出集合和环境。",
+      "在 IntelliJ IDEA 中打开项目，选择 Tools → Postman Migration Assistant。",
+      "选择文件，点击 Analyze，查看阻碍项并选择导出策略。",
+      "运行适合的 .http 文件，核对响应和断言。"
+    ]
+  },
+  "faqSection": { "eyebrow": "常见问题", "title": "帮助您快速判断的简明答案。" },
+  "faq": [
+    { "question": "这个插件有什么用途？", "answer": "Postman Migration Assistant 分析 Postman Collection v2.0/v2.1，并导出 IntelliJ HTTP Client 请求、环境文件、兼容脚本、来源映射及待检查事项报告。" },
+    { "question": "需要重新导出 v2.0 集合吗？", "answer": "不需要。插件接受 v2.0 和 v2.1；v2.0 在内存中规范化，原始文件不会被修改。" },
+    { "question": "为什么有些请求必须从头运行？", "answer": "scenario.http 中的请求可能使用前面生成的 token、ID 或变量，因此必须按顺序执行。independent.http 中的请求可以单独或并行运行。" },
+    { "question": "97.2% 表示请求运行成功率吗？", "answer": "不是。这是静态转换覆盖率：20 个公开集合的 2,582 个可执行请求中有 2,510 个可转换。仍须在目标 API 上进行运行时测试。" },
+    { "question": "集合会上传到服务器吗？", "answer": "导入期间不会。分析和导出在本地执行。运行生成的 .http 文件时，IntelliJ HTTP Client 才会向您配置的 API 发送请求。" },
+    { "question": "支持 GraphQL、gRPC 和 WebSocket 吗？", "answer": "有条件支持。GraphQL 需要 query；gRPC 需要 URL、service/method 和 message；WebSocket 需要 URL 与消息序列。信息不完整的请求会标记为人工检查。" },
+    { "question": "目前面向哪个 IDE 版本？", "answer": "技术预览版面向 IntelliJ IDEA Ultimate 2025.3.2 (IU-253.30387.90)。请查看兼容性矩阵中的最新证据。尚未宣布支持更广泛的 IDE 或操作系统。" }
+  ],
+  "contact": {
+    "eyebrow": "封闭测试",
+    "title": "带来一个复杂集合，看看能转换到什么程度。",
+    "intro": "请说明集合类型、IDE 版本和迁移目标。请勿通过邮件发送 token、密钥或客户数据。",
+    "cta": "发送邮件"
+  },
+  "footer": {
+    "disclaimer": "独立迁移工具，与 Postman 或 JetBrains 无关联，也未获得其认证。",
+    "docs": "技术文档"
+  }
+}

@@ -1,0 +1,13 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:04.000
+CRUD v2.1 集合包含 Login、Create、Read 和 Cleanup。
+
+00:00:04.000 --> 00:00:08.000
+分析识别请求之间的 token 和 customerId 依赖。
+
+00:00:08.000 --> 00:00:13.000
+插件导出 scenario.http、环境文件和报告。
+
+00:00:13.000 --> 00:00:18.000
+从 Login 开始运行，并在 IntelliJ HTTP Client 中验证结果。

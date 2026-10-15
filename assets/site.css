@@ -8,3 +8,10 @@ body{overflow-x:hidden}
 h1{font-size:clamp(40px,4.4vw,56px)}
 .hero{padding-top:76px;padding-bottom:82px}
 @media(max-width:680px){h1{font-size:40px}.hero{padding:56px 0 65px}}
+.nav-end,.language-switch{display:flex;align-items:center}
+.nav-end{gap:14px}
+.language-switch{gap:2px;padding:3px;border:1px solid #35445f;border-radius:9px;background:#111a2e}
+.language-switch a{display:block;padding:5px 7px;border-radius:6px;color:#aebbd0;text-decoration:none;font-size:11px;font-weight:700;white-space:nowrap}
+.language-switch a:hover{color:#fff;background:#273755}
+.language-switch a[aria-current="page"]{color:#0e1830;background:#7ce3d9}
+@media(max-width:680px){.nav .brand b{display:none}.nav-end>.button{display:none}.nav-end{gap:0}.language-switch a{padding:4px 5px;font-size:11px}}

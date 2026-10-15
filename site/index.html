@@ -1,75 +1,55 @@
 <!doctype html>
-<html lang="vi">
+<html lang="[[htmlLang]]">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0b1020">
-  <meta name="description" content="Postman Migration Assistant chuyển Postman Collection v2.0/v2.1 thành bộ request IntelliJ HTTP Client, tách request độc lập và chuỗi phụ thuộc, giữ environment và báo cáo phần cần rà soát.">
+  <meta name="description" content="[[seo.description]]">
   <meta name="robots" content="index,follow,max-image-preview:large">
-  <meta name="author" content="Postman Migration Assistant">
   <meta property="og:type" content="website">
-  <meta property="og:locale" content="vi_VN">
-  <meta property="og:title" content="Postman Migration Assistant — chuyển collection vào IntelliJ HTTP Client">
-  <meta property="og:description" content="Phân tích trước khi import. Chuyển request, script và environment có kiểm soát. Xem video và mẫu trước/sau thật.">
-  <meta property="og:image" content="__SITE_URL__assets/og-card.png">
-  <meta property="og:url" content="__SITE_URL__">
+  <meta property="og:locale" content="[[ogLocale]]">
+  <meta property="og:title" content="[[seo.title]]">
+  <meta property="og:description" content="[[seo.description]]">
+  <meta property="og:image" content="[[siteUrl]]assets/og-card.png">
+  <meta property="og:url" content="[[canonical]]">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="canonical" href="__SITE_URL__">
-  <link rel="icon" href="./assets/icon.svg" type="image/svg+xml">
-  <link rel="preload" href="./assets/site.css" as="style">
-  <link rel="stylesheet" href="./assets/site.css">
-  <title>Postman Migration Assistant | Import collection vào IntelliJ HTTP Client</title>
-  <script type="application/ld+json" id="structured-data">__STRUCTURED_DATA__</script>
+  <link rel="canonical" href="[[canonical]]">
+  [[hreflangLinks]]
+  <link rel="icon" href="[[assetPrefix]]assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="[[assetPrefix]]assets/site.css">
+  <title>[[seo.title]]</title>
+  <script type="application/ld+json" id="structured-data">[[structuredData]]</script>
 </head>
 <body>
-  <a class="skip-link" href="#main">Bỏ qua menu</a>
-  <header class="site-header">
-    <div class="wrap nav">
-      <a class="brand" href="#top" aria-label="Postman Migration Assistant, về đầu trang"><img src="./assets/icon.svg" alt="" width="34" height="34"><span>Postman <b>Migration Assistant</b></span></a>
-      <nav aria-label="Điều hướng chính">
-        <a href="#workflow">Cách hoạt động</a><a href="#demo">Demo</a><a href="#features">Tính năng</a><a href="#faq">FAQ</a>
-      </nav>
-      <a class="button button-small button-ghost" href="#contact">Đăng ký beta <span aria-hidden="true">↗</span></a>
-    </div>
-  </header>
+  <a class="skip-link" href="#main">[[nav.skip]]</a>
+  <header class="site-header"><div class="wrap nav">
+    <a class="brand" href="#top" aria-label="[[nav.homeAria]]"><img src="[[assetPrefix]]assets/icon.svg" alt="" width="34" height="34"><span>Postman <b>Migration Assistant</b></span></a>
+    <nav aria-label="[[nav.aria]]"><a href="#workflow">[[nav.workflow]]</a><a href="#demo">[[nav.demo]]</a><a href="#features">[[nav.features]]</a><a href="#faq">[[nav.faq]]</a></nav>
+    <div class="nav-end"><div class="language-switch" aria-label="[[nav.languageAria]]">[[languageLinks]]</div><a class="button button-small button-ghost" href="#contact">[[nav.beta]] <span aria-hidden="true">↗</span></a></div>
+  </div></header>
   <main id="main">
-    <section class="hero wrap" id="top">
-      <div class="hero-copy">
-        <p class="eyebrow"><span class="status-dot"></span> IntelliJ IDEA 2025.3.2 · Technical preview</p>
-        <h1>Đưa Postman collection vào <em>IntelliJ HTTP Client.</em><br>Biết rõ điều gì đã chuyển, điều gì cần kiểm tra.</h1>
-        <p class="lede">Import Collection v2.0 hoặc v2.1, chọn environment, xem phân tích phụ thuộc rồi xuất file <code>.http</code> để chạy ngay trong IDE. Mọi phần chưa có ánh xạ an toàn đều được chỉ rõ trong báo cáo.</p>
-        <div class="hero-actions"><a class="button button-primary" href="#contact">Nhận bản beta <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="#demo">Xem trước và sau <span aria-hidden="true">↓</span></a></div>
-        <p class="hero-note">Phân tích và xuất file cục bộ · Không ghi đè collection gốc · Chưa gửi request ở bước import</p>
-      </div>
-      <div class="hero-art" aria-label="Minh họa collection Postman đi qua bước phân tích và xuất thành IntelliJ HTTP Client">
-        <div class="art-top"><span class="window-dots"><i></i><i></i><i></i></span><span>migration-preview</span><span class="art-badge">OFFLINE</span></div>
-        <div class="art-flow"><div class="flow-node"><span class="node-icon">{ }</span><strong>collection.json</strong><small>v2.0 / v2.1</small></div><div class="flow-arrow">→<small>Analyze</small></div><div class="flow-node highlight"><span class="node-icon">→_</span><strong>HTTP Client</strong><small>.http + report</small></div></div>
-        <div class="art-list"><div><span class="file-icon purple">◆</span><span>scenario.http</span><small>theo thứ tự</small></div><div><span class="file-icon cyan">↗</span><span>independent.http</span><small>chạy riêng</small></div><div><span class="file-icon amber">◫</span><span>migration-report.md</span><small>cần rà soát</small></div></div>
-        <div class="art-footer"><span class="mini-dot"></span> Luồng import có thể kiểm tra được <span>↗</span></div>
-      </div>
-    </section>
-    <section class="proof-band" aria-label="Số liệu đánh giá"><div class="wrap proof-grid"><div><strong>97,2%</strong><span>request chuyển đổi tĩnh</span></div><div><strong>20</strong><span>collection công khai được đo</span></div><div><strong>2.582</strong><span>request thực thi trong corpus</span></div><p>Đây là <b>độ phủ chuyển đổi tĩnh</b> của v0.9.0, không phải tỷ lệ chạy thành công. 72 request còn lại được đưa vào diện rà soát thủ công. <a href="__REPO_URL__/blob/main/site/docs/CORPUS-BENCHMARK.md">Xem phương pháp đo ↗</a></p></div></section>
-    <section class="section wrap" id="workflow">
-      <div class="section-intro"><p class="eyebrow">QUY TRÌNH</p><h2>Từ file export đến request có thể kiểm tra, trong bốn bước.</h2><p>Plugin giúp bạn chuyển cấu trúc collection và giữ đường truy vết về nguồn. Bạn quyết định cách chạy sau khi xem báo cáo.</p></div>
-      <div class="steps">
-        <article><span class="step-number">01</span><h3>Chọn đầu vào</h3><p>Chọn collection <code>.json</code> v2.0/v2.1, environment và globals nếu có. Collection v2.0 được chuẩn hóa trong bộ nhớ; file gốc giữ nguyên.</p></article>
-        <article><span class="step-number">02</span><h3>Analyze</h3><p>Xem request chuyển được, blocker, script và đồ thị biến giữa các request. Bước này không gọi API.</p></article>
-        <article><span class="step-number">03</span><h3>Chọn chiến lược</h3><p>Giữ nguyên thứ tự, tự tách request độc lập hoặc chỉ xuất báo cáo. Preview giải thích vì sao một request cần chạy theo chuỗi.</p></article>
-        <article><span class="step-number">04</span><h3>Export &amp; xác minh</h3><p>Chạy <code>scenario.http</code> từ đầu file; các request trong <code>independent.http</code> có thể chạy riêng. So sánh kết quả khi cần độ tương đương runtime.</p></article>
-      </div>
-    </section>
+    <section class="hero wrap" id="top"><div class="hero-copy">
+      <p class="eyebrow"><span class="status-dot"></span> [[hero.eyebrow]]</p>
+      <h1>[[hero.title1]] <em>[[hero.accent]]</em><br>[[hero.title2]]</h1>
+      <p class="lede">[[hero.lede]]</p>
+      <div class="hero-actions"><a class="button button-primary" href="#contact">[[hero.cta]] <span aria-hidden="true">↗</span></a><a class="button button-secondary" href="#demo">[[hero.secondary]] <span aria-hidden="true">↓</span></a></div>
+      <p class="hero-note">[[hero.note]]</p>
+    </div><div class="hero-art" role="img" aria-label="[[hero.artAria]]">
+      <div class="art-top"><span class="window-dots"><i></i><i></i><i></i></span><span>migration-preview</span><span class="art-badge">OFFLINE</span></div>
+      <div class="art-flow"><div class="flow-node"><span class="node-icon">{ }</span><strong>collection.json</strong><small>v2.0 / v2.1</small></div><div class="flow-arrow">→<small>Analyze</small></div><div class="flow-node highlight"><span class="node-icon">→_</span><strong>HTTP Client</strong><small>.http + report</small></div></div>
+      <div class="art-list"><div><span class="file-icon purple">◆</span><span>scenario.http</span><small>[[hero.scenario]]</small></div><div><span class="file-icon cyan">↗</span><span>independent.http</span><small>[[hero.independent]]</small></div><div><span class="file-icon amber">◫</span><span>migration-report.md</span><small>[[hero.review]]</small></div></div>
+      <div class="art-footer"><span class="mini-dot"></span> [[hero.artFooter]] <span>↗</span></div>
+    </div></section>
+    <section class="proof-band" aria-label="[[proof.aria]]"><div class="wrap proof-grid"><div><strong>[[proof.percentage]]</strong><span>[[proof.convertible]]</span></div><div><strong>20</strong><span>[[proof.collections]]</span></div><div><strong>[[proof.totalRequests]]</strong><span>[[proof.requests]]</span></div><p>[[proof.note]] <a href="[[repoUrl]]/blob/main/site/docs/CORPUS-BENCHMARK.md">[[proof.methodology]] ↗</a></p></div></section>
+    <section class="section wrap" id="workflow"><div class="section-intro"><p class="eyebrow">[[workflow.eyebrow]]</p><h2>[[workflow.title]]</h2><p>[[workflow.intro]]</p></div><div class="steps">[[stepsHtml]]</div></section>
     <section class="section demo-section" id="demo"><div class="wrap">
-      <div class="section-intro"><p class="eyebrow">DEMO CÓ DỮ LIỆU KIỂM THỬ</p><h2>Thấy rõ đầu vào, đầu ra và giới hạn.</h2><p>Ví dụ dùng fixture CRUD bốn request trong repository. Video minh họa luồng chuyển đổi từ dữ liệu fixture, không phải video quay màn hình IntelliJ.</p></div>
-      <div class="video-shell">
-        <video controls preload="metadata" poster="./assets/demo-poster.png" width="1280" height="720" aria-describedby="video-description">
-          <source src="./assets/import-demo.mp4" type="video/mp4">
-          <track default kind="captions" srclang="vi" label="Tiếng Việt" src="./assets/import-demo.vi.vtt">
-          Trình duyệt của bạn không hỗ trợ video. <a href="./assets/import-demo.mp4">Tải video MP4</a>.
-        </video>
-        <div class="video-caption" id="video-description"><span>01: Từ JSON đến .http</span><a href="#transcript">Đọc lời dẫn video ↗</a></div>
-      </div>
-      <div class="comparison">
-        <article class="code-card"><div class="code-head"><span><i class="code-dot orange"></i> Trước import</span><small>CRUD collection v2.1 · rút gọn</small></div><pre><code>{
+      <div class="section-intro"><p class="eyebrow">[[demo.eyebrow]]</p><h2>[[demo.title]]</h2><p>[[demo.intro]]</p></div>
+      <div class="video-shell"><video controls preload="metadata" poster="[[assetPrefix]]assets/demo-poster.png" width="1280" height="720" aria-describedby="video-description">
+        <source src="[[assetPrefix]]assets/import-demo.mp4" type="video/mp4">
+        [[videoTracks]]
+        [[demo.videoFallback]] <a href="[[assetPrefix]]assets/import-demo.mp4">[[demo.downloadVideo]]</a>.
+      </video><div class="video-caption" id="video-description"><span>[[demo.videoLabel]]</span><a href="#transcript">[[demo.readTranscript]] ↗</a></div></div>
+      <div class="comparison"><article class="code-card"><div class="code-head"><span><i class="code-dot orange"></i> [[demo.before]]</span><small>[[demo.beforeDetail]]</small></div><pre><code>{
   "name": "Login",
   "request": {
     "method": "POST",
@@ -86,9 +66,7 @@
       "  'token', pm.response.json().token)"
     ]}
   }]
-}</code></pre></article>
-        <div class="compare-arrow" aria-hidden="true">→</div>
-        <article class="code-card"><div class="code-head"><span><i class="code-dot green"></i> Sau import</span><small>scenario.http · rút gọn</small></div><pre><code>### Login
+}</code></pre></article><div class="compare-arrow" aria-hidden="true">→</div><article class="code-card"><div class="code-head"><span><i class="code-dot green"></i> [[demo.after]]</span><small>[[demo.afterDetail]]</small></div><pre><code>### Login
 POST {{pma_base_url}}/login
 Content-Type: application/json
 
@@ -105,37 +83,15 @@ Content-Type: application/json
 POST {{pma_base_url}}/customers
 Authorization: Bearer {{pma_token}}
 
-{"name":"Ada"}</code></pre></article>
-      </div>
-      <p class="example-note">Đoạn mã trên được rút gọn để dễ đọc: hook sau response trong bundle thật có thêm lệnh import và khởi tạo bridge. Bundle còn có <code>scripts/compat.js</code>, environment và report. Vì <code>Create</code> dùng token do <code>Login</code> tạo, cặp request này thuộc <code>scenario.http</code> và cần chạy theo thứ tự. <a href="__REPO_URL__/blob/main/site/qa/fixtures/crud.postman_collection.json">Xem fixture nguồn ↗</a></p>
-      <details class="transcript" id="transcript"><summary>Lời dẫn video và mô tả từng cảnh</summary><p>0–4 giây: collection CRUD v2.1 gồm Login, Create, Read, Cleanup. 4–8 giây: Analyze tìm biến token và customerId tạo liên kết giữa các request. 8–13 giây: plugin xuất scenario.http, environment và báo cáo. 13–18 giây: chạy từ Login; kiểm tra kết quả trong IntelliJ HTTP Client. Video là minh họa được dựng từ fixture kiểm thử, không phải bằng chứng chạy giao diện native.</p></details>
+{"name":"Ada"}</code></pre></article></div>
+      <p class="example-note">[[demo.exampleNote]] <a href="[[repoUrl]]/blob/main/site/qa/fixtures/crud.postman_collection.json">[[demo.fixtureLink]] ↗</a></p>
+      <details class="transcript" id="transcript"><summary>[[demo.transcriptSummary]]</summary><p>[[demo.transcript]]</p></details>
     </div></section>
-    <section class="section wrap" id="features">
-      <div class="section-intro"><p class="eyebrow">KHẢ NĂNG</p><h2>Chuyển đổi có trách nhiệm, đủ ngữ cảnh để tiếp tục công việc.</h2></div>
-      <div class="feature-grid">
-        <article><span class="feature-mark">↗</span><h3>Không ép mọi request thành một chuỗi</h3><p>Đồ thị phụ thuộc tách request độc lập khỏi các bước cần dữ liệu từ request trước. Bạn có thể chọn giữ nguyên thứ tự hoặc chỉ tạo report.</p></article>
-        <article><span class="feature-mark">◈</span><h3>Environment và script</h3><p>Chuyển scope biến và các API <code>pm.*</code> có ánh xạ đã kiểm thử. Giá trị nhạy cảm nằm trong private environment, được thêm vào <code>.gitignore</code>.</p></article>
-        <article><span class="feature-mark">⌘</span><h3>Không bỏ qua phần khó</h3><p>GraphQL, gRPC, WebSocket chỉ được xuất khi metadata cần thiết đầy đủ. Request chưa bảo toàn semantics đi vào <code>manual-review.md</code> cùng vị trí trong nguồn.</p></article>
-        <article><span class="feature-mark">◎</span><h3>Đối chiếu sau migration</h3><p>Adapter Newman và IntelliJ trace tạo báo cáo so sánh method, URL, header, body, status và assertion; dữ liệu nhạy cảm được che bằng fingerprint.</p></article>
-        <article><span class="feature-mark">▣</span><h3>Điều khiển trong IDE</h3><p>Mở <b>Tools → Postman Migration Assistant</b> hoặc nhấn <b>Ctrl+Alt+Shift+P</b>. Preview, dependency graph, output và report nằm trong một quy trình.</p></article>
-        <article><span class="feature-mark">◇</span><h3>Phân tích offline</h3><p>Đọc, phân tích và xuất file trên máy. Không gọi Postman, JetBrains hay máy chủ của nhà phát triển trong luồng import.</p></article>
-      </div>
-      <div class="limitation"><span>Ranh giới rõ ràng</span><p>Script JavaScript ngoài tập được hỗ trợ, hành vi mạng/async phức tạp và metadata protocol thiếu có thể cần sửa thủ công. Tình trạng “convertible” không chứng minh request đã chạy đúng với API của bạn. Compatibility hiện được công bố cho target ghi trong <a href="__REPO_URL__/blob/main/site/docs/COMPATIBILITY.md">matrix ↗</a>.</p></div>
-    </section>
-    <section class="section install-section" id="install"><div class="wrap install-grid"><div><p class="eyebrow">BẮT ĐẦU</p><h2>Thử trên một collection thực của bạn.</h2><p>Technical preview nhắm IntelliJ IDEA Ultimate 2025.3.2. Liên hệ để tham gia beta, nhận bản build và hướng dẫn cài bằng <b>Settings → Plugins → Install Plugin from Disk</b>.</p><a class="button button-primary" href="mailto:shadowmoon6868@gmail.com?subject=Postman%20Migration%20Assistant%20beta">Yêu cầu bản beta <span aria-hidden="true">↗</span></a></div><ol><li>Export collection và environment từ Postman.</li><li>Mở project trong IntelliJ IDEA; vào <b>Tools → Postman Migration Assistant</b>.</li><li>Chọn file, nhấn <b>Analyze</b>, đọc blocker và chọn chiến lược xuất.</li><li>Chạy file <code>.http</code> phù hợp, xác minh phản hồi và assertion.</li></ol></div></section>
-    <section class="section wrap faq-section" id="faq"><div class="section-intro"><p class="eyebrow">CÂU HỎI THƯỜNG GẶP</p><h2>Câu trả lời ngắn, đủ để quyết định.</h2></div>
-      <div class="faq-list">
-        <details><summary>Plugin này làm gì?</summary><p>Postman Migration Assistant phân tích Postman Collection v2.0/v2.1 và xuất request cho IntelliJ HTTP Client cùng environment, script tương thích, source map và báo cáo những phần cần rà soát.</p></details>
-        <details><summary>Tôi có cần export collection v2.1 lại từ Postman không?</summary><p>Không. Plugin nhận v2.0 hoặc v2.1; v2.0 được chuẩn hóa trong bộ nhớ và file gốc không bị sửa.</p></details>
-        <details><summary>Vì sao một số request phải chạy từ đầu file?</summary><p>Request trong <code>scenario.http</code> có thể dùng token, ID hoặc biến do request trước tạo. Chạy chúng theo thứ tự. Request trong <code>independent.http</code> có thể chạy riêng hoặc song song.</p></details>
-        <details><summary>97,2% có nghĩa là 97,2% request chạy thành công?</summary><p>Không. Đây là tỷ lệ chuyển đổi tĩnh của 2.510 trong 2.582 request thực thi thuộc 20 collection công khai. Cần kiểm thử runtime trên API đích để xác nhận hành vi.</p></details>
-        <details><summary>Dữ liệu collection có được tải lên máy chủ không?</summary><p>Không trong luồng import. Phân tích và xuất file diễn ra cục bộ. Khi bạn tự chạy file <code>.http</code>, IntelliJ HTTP Client gửi request đến API mà bạn cấu hình.</p></details>
-        <details><summary>Plugin có hỗ trợ GraphQL, gRPC và WebSocket không?</summary><p>Có điều kiện. GraphQL cần query; gRPC cần URL, service/method và message; WebSocket cần URL và message sequence. Thiếu dữ liệu cần thiết thì request được chỉ định rà soát thủ công.</p></details>
-        <details><summary>Hiện dùng trên IDE nào?</summary><p>Technical preview được nhắm tới IntelliJ IDEA Ultimate 2025.3.2 (build IU-253.30387.90). Xem compatibility matrix để biết bằng chứng kiểm thử mới nhất. Chưa có công bố hỗ trợ rộng cho các phiên bản hoặc hệ điều hành khác.</p></details>
-      </div>
-    </section>
-    <section class="contact-section" id="contact"><div class="wrap contact-inner"><div><p class="eyebrow">BETA KÍN</p><h2>Mang một collection khó. Chúng ta sẽ xem nó chuyển được đến đâu.</h2><p>Gửi loại collection, IDE đang dùng và điều bạn muốn đánh giá. Không cần gửi token, secret hay dữ liệu khách hàng qua email.</p></div><div class="contact-actions"><a class="button button-light" href="mailto:shadowmoon6868@gmail.com?subject=Postman%20Migration%20Assistant%20beta&amp;body=IDE%3A%0ACollection%20type%3A%0AMigration%20goal%3A">Liên hệ qua email ↗</a><a class="email-link" href="mailto:shadowmoon6868@gmail.com">shadowmoon6868@gmail.com</a></div></div></section>
+    <section class="section wrap" id="features"><div class="section-intro"><p class="eyebrow">[[features.eyebrow]]</p><h2>[[features.title]]</h2></div><div class="feature-grid">[[featuresHtml]]</div><div class="limitation"><span>[[features.limitTitle]]</span><p>[[features.limitBody]] <a href="[[repoUrl]]/blob/main/site/docs/COMPATIBILITY.md">[[features.matrixLink]] ↗</a>.</p></div></section>
+    <section class="section install-section" id="install"><div class="wrap install-grid"><div><p class="eyebrow">[[install.eyebrow]]</p><h2>[[install.title]]</h2><p>[[install.intro]]</p><a class="button button-primary" href="mailto:shadowmoon6868@gmail.com?subject=Postman%20Migration%20Assistant%20beta">[[install.cta]] <span aria-hidden="true">↗</span></a></div><ol>[[installStepsHtml]]</ol></div></section>
+    <section class="section wrap faq-section" id="faq"><div class="section-intro"><p class="eyebrow">[[faqSection.eyebrow]]</p><h2>[[faqSection.title]]</h2></div><div class="faq-list">[[faqHtml]]</div></section>
+    <section class="contact-section" id="contact"><div class="wrap contact-inner"><div><p class="eyebrow">[[contact.eyebrow]]</p><h2>[[contact.title]]</h2><p>[[contact.intro]]</p></div><div class="contact-actions"><a class="button button-light" href="mailto:shadowmoon6868@gmail.com?subject=Postman%20Migration%20Assistant%20beta">[[contact.cta]] ↗</a><a class="email-link" href="mailto:shadowmoon6868@gmail.com">shadowmoon6868@gmail.com</a></div></div></section>
   </main>
-  <footer><div class="wrap footer-inner"><div><a class="brand" href="#top"><img src="./assets/icon.svg" alt="" width="28" height="28"><span>Postman <b>Migration Assistant</b></span></a><p>Công cụ migration độc lập. Không liên kết hoặc được chứng nhận bởi Postman hay JetBrains.</p></div><div><a href="#workflow">Quy trình</a><a href="#demo">Demo</a><a href="#faq">FAQ</a><a href="__REPO_URL__/blob/main/README.md">Tài liệu kỹ thuật ↗</a></div><small>© 2026 Postman Migration Assistant</small></div></footer>
+  <footer><div class="wrap footer-inner"><div><a class="brand" href="#top"><img src="[[assetPrefix]]assets/icon.svg" alt="" width="28" height="28"><span>Postman <b>Migration Assistant</b></span></a><p>[[footer.disclaimer]]</p></div><div><a href="#workflow">[[nav.workflow]]</a><a href="#demo">[[nav.demo]]</a><a href="#faq">[[nav.faq]]</a><a href="[[repoUrl]]/blob/main/README.md">[[footer.docs]] ↗</a></div><small>© 2026 Postman Migration Assistant</small></div></footer>
 </body>
 </html>

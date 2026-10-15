@@ -1,0 +1,128 @@
+{
+  "code": "vi",
+  "htmlLang": "vi",
+  "ogLocale": "vi_VN",
+  "label": "Tiếng Việt",
+  "shortLabel": "VI",
+  "seo": {
+    "title": "Postman Migration Assistant | Import collection vào IntelliJ HTTP Client",
+    "description": "Chuyển Postman Collection v2.0/v2.1 thành request IntelliJ HTTP Client. Xem phụ thuộc, giữ environment và đối chiếu ví dụ trước/sau import."
+  },
+  "nav": {
+    "skip": "Bỏ qua menu",
+    "homeAria": "Postman Migration Assistant, về đầu trang",
+    "aria": "Điều hướng chính",
+    "workflow": "Cách hoạt động",
+    "demo": "Demo",
+    "features": "Tính năng",
+    "faq": "FAQ",
+    "beta": "Đăng ký beta",
+    "languageAria": "Chọn ngôn ngữ"
+  },
+  "hero": {
+    "eyebrow": "IntelliJ IDEA 2025.3.2 · Technical preview",
+    "title1": "Đưa Postman collection vào",
+    "accent": "IntelliJ HTTP Client.",
+    "title2": "Biết rõ điều gì đã chuyển, điều gì cần kiểm tra.",
+    "lede": "Import Collection v2.0 hoặc v2.1, chọn environment, xem phân tích phụ thuộc rồi xuất file .http để chạy trong IDE. Báo cáo chỉ rõ phần chưa có ánh xạ an toàn.",
+    "cta": "Nhận bản beta",
+    "secondary": "Xem trước và sau",
+    "note": "Phân tích và xuất file cục bộ · Không ghi đè collection gốc · Chưa gửi request ở bước import",
+    "artAria": "Minh họa collection Postman được phân tích và xuất thành file IntelliJ HTTP Client",
+    "scenario": "theo thứ tự",
+    "independent": "chạy riêng",
+    "review": "cần rà soát",
+    "artFooter": "Luồng import có thể kiểm tra được"
+  },
+  "proof": {
+    "aria": "Số liệu đánh giá",
+    "percentage": "97,2%",
+    "totalRequests": "2.582",
+    "convertible": "request chuyển đổi tĩnh",
+    "collections": "collection công khai được đo",
+    "requests": "request thực thi trong corpus",
+    "note": "Đây là độ phủ chuyển đổi tĩnh của v0.9.0, không phải tỷ lệ chạy thành công. 72 request còn lại cần rà soát thủ công.",
+    "methodology": "Xem phương pháp đo"
+  },
+  "workflow": {
+    "eyebrow": "Quy trình",
+    "title": "Từ file export đến request có thể kiểm tra, trong bốn bước.",
+    "intro": "Plugin giữ đường truy vết về collection nguồn; bạn quyết định cách chạy sau khi xem báo cáo.",
+    "steps": [
+      { "title": "Chọn đầu vào", "body": "Chọn collection JSON v2.0/v2.1, environment và globals nếu cần. v2.0 được chuẩn hóa trong bộ nhớ; file gốc giữ nguyên." },
+      { "title": "Analyze", "body": "Xem request chuyển được, blocker, script và đồ thị phụ thuộc biến. Bước này không gọi API." },
+      { "title": "Chọn chiến lược", "body": "Giữ nguyên thứ tự, tách request độc lập hoặc chỉ xuất báo cáo. Preview giải thích vì sao một request cần chạy theo chuỗi." },
+      { "title": "Export và xác minh", "body": "Chạy scenario.http từ request đầu tiên. Request trong independent.http có thể chạy riêng. Đối chiếu runtime khi cần kiểm chứng tương đương." }
+    ]
+  },
+  "demo": {
+    "eyebrow": "Demo từ dữ liệu kiểm thử",
+    "title": "Thấy rõ đầu vào, đầu ra và giới hạn.",
+    "intro": "Ví dụ dùng fixture CRUD bốn request trong repository. Video được dựng từ dữ liệu kiểm thử, không phải quay giao diện IntelliJ.",
+    "videoFallback": "Trình duyệt không hỗ trợ video.",
+    "downloadVideo": "Tải video MP4",
+    "videoLabel": "01: Từ JSON đến .http",
+    "readTranscript": "Đọc lời dẫn video",
+    "before": "Trước import",
+    "beforeDetail": "Collection CRUD v2.1 · rút gọn",
+    "after": "Sau import",
+    "afterDetail": "scenario.http · rút gọn",
+    "exampleNote": "Mã được rút gọn cho dễ đọc: hook thật còn import và khởi tạo bridge. Bundle có scripts/compat.js, environment và report. Create dùng token do Login tạo nên hai request thuộc scenario.http và phải chạy theo thứ tự.",
+    "fixtureLink": "Xem fixture nguồn",
+    "transcriptSummary": "Lời dẫn video và mô tả từng cảnh",
+    "transcript": "0–4 giây: collection CRUD gồm Login, Create, Read và Cleanup. 4–8 giây: Analyze tìm phụ thuộc token và customerId. 8–13 giây: plugin xuất scenario.http, environment và báo cáo. 13–18 giây: chạy từ Login và kiểm tra kết quả trong IntelliJ HTTP Client. Đây là minh họa từ fixture, không phải bằng chứng chạy UI native.",
+    "captions": [
+      "Collection CRUD v2.1 gồm Login, Create, Read và Cleanup.",
+      "Analyze tìm token và customerId tạo phụ thuộc giữa các request.",
+      "Plugin xuất scenario.http, environment và báo cáo.",
+      "Chạy từ Login và xác minh kết quả trong IntelliJ HTTP Client."
+    ]
+  },
+  "features": {
+    "eyebrow": "Khả năng",
+    "title": "Chuyển đổi có trách nhiệm, đủ ngữ cảnh để tiếp tục công việc.",
+    "items": [
+      { "title": "Không ép mọi request thành một chuỗi", "body": "Đồ thị phụ thuộc tách request độc lập khỏi bước dùng dữ liệu trước đó. Bạn cũng có thể giữ nguyên thứ tự hoặc chỉ tạo báo cáo." },
+      { "title": "Environment và script", "body": "Các scope biến và API pm.* đã kiểm thử được ánh xạ. Giá trị nhạy cảm nằm trong private environment và được thêm vào .gitignore." },
+      { "title": "Không âm thầm hạ cấp", "body": "GraphQL, gRPC và WebSocket chỉ được xuất khi đủ metadata. Phần không bảo toàn semantics nằm trong manual-review.md kèm vị trí nguồn." },
+      { "title": "Đối chiếu sau migration", "body": "Adapter Newman và IntelliJ trace so sánh method, URL, header, body, status và assertion; dữ liệu nhạy cảm được che bằng fingerprint." },
+      { "title": "Điều khiển trong IDE", "body": "Mở Tools → Postman Migration Assistant hoặc nhấn Ctrl+Alt+Shift+P. Preview, dependency graph, output và report nằm trong một luồng." },
+      { "title": "Phân tích offline", "body": "Đọc, phân tích và xuất file cục bộ. Luồng import không gọi Postman, JetBrains hay máy chủ của nhà phát triển." }
+    ],
+    "limitTitle": "Ranh giới rõ ràng",
+    "limitBody": "JavaScript ngoài tập hỗ trợ, hành vi mạng/async phức tạp và metadata protocol thiếu có thể cần sửa thủ công. Convertible không chứng minh request chạy đúng trên API của bạn. Compatibility chỉ công bố cho target trong",
+    "matrixLink": "compatibility matrix"
+  },
+  "install": {
+    "eyebrow": "Bắt đầu",
+    "title": "Thử trên một collection thực của bạn.",
+    "intro": "Technical preview nhắm IntelliJ IDEA Ultimate 2025.3.2. Liên hệ để tham gia beta, nhận bản build và hướng dẫn cài qua Settings → Plugins → Install Plugin from Disk.",
+    "cta": "Yêu cầu bản beta",
+    "steps": [
+      "Export collection và environment từ Postman.",
+      "Mở project trong IntelliJ IDEA và chọn Tools → Postman Migration Assistant.",
+      "Chọn file, nhấn Analyze, xem blocker và chọn chiến lược xuất.",
+      "Chạy file .http phù hợp và kiểm tra response cùng assertion."
+    ]
+  },
+  "faqSection": { "eyebrow": "Câu hỏi thường gặp", "title": "Câu trả lời ngắn, đủ để quyết định." },
+  "faq": [
+    { "question": "Plugin này làm gì?", "answer": "Postman Migration Assistant phân tích Postman Collection v2.0/v2.1 rồi xuất request IntelliJ HTTP Client, environment, script tương thích, source map và báo cáo phần cần rà soát." },
+    { "question": "Tôi có cần export lại collection v2.0 không?", "answer": "Không. Plugin nhận v2.0 và v2.1. v2.0 được chuẩn hóa trong bộ nhớ, file nguồn không bị sửa." },
+    { "question": "Vì sao một số request phải chạy từ đầu file?", "answer": "Request trong scenario.http có thể dùng token, ID hoặc biến do request trước tạo. Hãy chạy theo thứ tự. Request trong independent.http có thể chạy riêng hoặc song song." },
+    { "question": "97,2% có nghĩa là request chạy thành công?", "answer": "Không. Đây là tỷ lệ chuyển đổi tĩnh: 2.510 trong 2.582 request thực thi thuộc 20 collection công khai. Vẫn cần kiểm thử runtime trên API đích." },
+    { "question": "Collection có bị tải lên máy chủ không?", "answer": "Không trong lúc import. Phân tích và xuất file diễn ra cục bộ. Khi bạn chạy file .http, IntelliJ HTTP Client gửi request đến API đã cấu hình." },
+    { "question": "Có hỗ trợ GraphQL, gRPC và WebSocket không?", "answer": "Có điều kiện. GraphQL cần query; gRPC cần URL, service/method và message; WebSocket cần URL và message sequence. Request thiếu dữ liệu được chỉ định rà soát thủ công." },
+    { "question": "Hiện nhắm IDE nào?", "answer": "Technical preview nhắm IntelliJ IDEA Ultimate 2025.3.2 (IU-253.30387.90). Xem compatibility matrix để biết bằng chứng mới nhất. Chưa công bố hỗ trợ rộng cho IDE hoặc hệ điều hành khác." }
+  ],
+  "contact": {
+    "eyebrow": "Beta kín",
+    "title": "Mang một collection khó. Chúng ta sẽ xem nó chuyển được đến đâu.",
+    "intro": "Gửi loại collection, phiên bản IDE và mục tiêu migration. Đừng gửi token, secret hay dữ liệu khách hàng qua email.",
+    "cta": "Liên hệ qua email"
+  },
+  "footer": {
+    "disclaimer": "Công cụ migration độc lập. Không liên kết hoặc được chứng nhận bởi Postman hay JetBrains.",
+    "docs": "Tài liệu kỹ thuật"
+  }
+}
