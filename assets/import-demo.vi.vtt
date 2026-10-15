@@ -1,0 +1,13 @@
+WEBVTT
+
+00:00:00.000 --> 00:00:04.000
+Collection CRUD v2.1 gồm Login, Create, Read và Cleanup.
+
+00:00:04.000 --> 00:00:08.000
+Analyze tìm token và customerId tạo phụ thuộc giữa các request.
+
+00:00:08.000 --> 00:00:13.000
+Plugin xuất scenario.http, environment và báo cáo.
+
+00:00:13.000 --> 00:00:18.000
+Chạy từ Login và xác minh kết quả trong IntelliJ HTTP Client.

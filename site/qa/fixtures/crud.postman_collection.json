@@ -1,0 +1,42 @@
+{
+  "info": {
+    "name": "M0 CRUD controlled fixture",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {"key": "baseUrl", "value": "http://127.0.0.1:18766"}
+  ],
+  "item": [
+    {
+      "name": "Login",
+      "request": {"method": "POST", "url": "{{baseUrl}}/login", "header": [{"key": "Content-Type", "value": "application/json"}], "body": {"mode": "raw", "raw": "{\"username\":\"fixture\"}"}},
+      "event": [{"listen": "test", "script": {"exec": [
+        "pm.test('login status', function () { pm.response.to.have.status(200); });",
+        "pm.collectionVariables.set('token', pm.response.json().token);"
+      ]}}]
+    },
+    {
+      "name": "Create",
+      "request": {"method": "POST", "url": "{{baseUrl}}/customers", "header": [{"key": "Content-Type", "value": "application/json"}, {"key": "Authorization", "value": "Bearer {{token}}"}], "body": {"mode": "raw", "raw": "{\"name\":\"Ada\"}"}},
+      "event": [{"listen": "test", "script": {"exec": [
+        "pm.test('create status', function () { pm.expect(pm.response.code).to.equal(201); });",
+        "pm.variables.set('customerId', pm.response.json().id);"
+      ]}}]
+    },
+    {
+      "name": "Read",
+      "request": {"method": "GET", "url": "{{baseUrl}}/customers/{{customerId}}", "header": [{"key": "Authorization", "value": "Bearer {{token}}"}]},
+      "event": [{"listen": "test", "script": {"exec": [
+        "pm.test('read status', function () { pm.expect(pm.response.code).to.equal(200); });",
+        "pm.test('read name', function () { pm.expect(pm.response.json().name).to.equal('Ada'); });"
+      ]}}]
+    },
+    {
+      "name": "Cleanup",
+      "request": {"method": "DELETE", "url": "{{baseUrl}}/customers/{{customerId}}", "header": [{"key": "Authorization", "value": "Bearer {{token}}"}]},
+      "event": [{"listen": "test", "script": {"exec": [
+        "pm.test('cleanup status', function () { pm.response.to.have.status(204); });"
+      ]}}]
+    }
+  ]
+}
