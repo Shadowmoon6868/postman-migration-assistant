@@ -13,10 +13,12 @@ node site/test.mjs
 python -m http.server 4173 --directory _site
 ```
 
-For deployment, set **Settings → Pages → Build and deployment → Source** to
-**GitHub Actions**. Pushing changes under `site/` on `main` runs the Pages
-workflow. The workflow derives the canonical URL and repository links from
-GitHub repository metadata. The repository must allow GitHub Pages.
+This repository publishes from `main` at `/`. To deploy updates, build with
+production `SITE_URL` and `REPO_URL`, run `node site/test.mjs`, then run
+`node site/sync-root.mjs` and commit/push the generated root files. Pages
+publishes the new commit automatically. The sync script rejects a localhost
+canonical URL. GitHub Actions can replace this flow when the publishing
+credential has workflow-management scope.
 
 The demo video is an **illustration generated from the controlled CRUD fixture**,
 not a native IntelliJ screen capture. Caption and written transcript are

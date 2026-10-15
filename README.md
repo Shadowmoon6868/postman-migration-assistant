@@ -28,14 +28,21 @@ Không gửi token, secret hoặc dữ liệu khách hàng qua email.
 
 ## Cập nhật website
 
-Source ở `site/`; workflow `.github/workflows/pages.yml` build bằng Node.js
-không cần npm package và deploy qua GitHub Pages. Sau khi clone:
+Source ở `site/`; các file tĩnh đã build nằm ở gốc repository và GitHub
+Pages xuất bản từ nhánh `main`, thư mục `/`. Token Git hiện tại không có
+quyền tạo workflow nên việc cập nhật site là một bước build và commit rõ
+ràng. Build không cần npm package. Sau khi clone:
 
 ```bash
 SITE_URL=http://localhost:4173/ REPO_URL=https://github.com/Shadowmoon6868/postman-migration-assistant node site/build.mjs
 node site/test.mjs
 python -m http.server 4173 --directory _site
 ```
+
+Khi đã sẵn sàng xuất bản thay đổi, build với `SITE_URL` và `REPO_URL`
+production, chạy `node site/test.mjs`, rồi chạy
+`node site/sync-root.mjs` để chép output đã kiểm tra vào gốc repository.
+Cuối cùng commit và push nhánh `main`.
 
 Thiết kế dùng CSS tĩnh, font hệ thống và không có script theo dõi. Sitemap,
 robots, metadata Open Graph, JSON-LD và `llms.txt` được tạo khi build.
