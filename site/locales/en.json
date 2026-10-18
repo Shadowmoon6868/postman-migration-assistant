@@ -17,7 +17,7 @@
     "features": "Features",
     "plans": "Free & Pro",
     "faq": "FAQ",
-    "beta": "Launch updates",
+    "beta": "Get plugin",
     "languageAria": "Choose language"
   },
   "hero": {
@@ -26,7 +26,7 @@
     "accent": "IntelliJ HTTP Client.",
     "title2": "Know what converted and what needs review.",
     "lede": "Import a v2.0 or v2.1 collection, select an environment, inspect request dependencies, then export .http files for your IDE. The report identifies anything that cannot be mapped safely.",
-    "cta": "Compare Free and Pro",
+    "cta": "Install from Marketplace",
     "secondary": "See before and after",
     "note": "Local analysis and export · Original collection preserved · No API calls during import",
     "artAria": "Illustration: Postman collection is analyzed and exported as IntelliJ HTTP Client files",
@@ -117,13 +117,14 @@
       "Everything in Free, with Marketplace trial and subscription entitlement."
     ],
     "trial": "Final subscription price and trial terms will be shown by JetBrains Marketplace before purchase.",
+    "cta": "Get the plugin",
     "unsupported": "Unsupported JavaScript, async or network behavior, and incomplete protocol metadata remain manual review in both editions. Pro never turns an unsafe guess into a supported conversion."
   },
   "install": {
     "eyebrow": "Get started",
     "title": "Try one of your real collections.",
-    "intro": "Version 1.0 targets IntelliJ IDEA Ultimate 2025.3.2. Contact us for launch availability or install a signed Marketplace build through Settings → Plugins.",
-    "cta": "Get launch updates",
+    "intro": "Version 1.0 targets IntelliJ IDEA Ultimate 2025.3.2. Open the JetBrains Marketplace listing, install the signed build, then start from Tools → Postman Migration Assistant.",
+    "cta": "Open JetBrains Marketplace",
     "steps": [
       "Export the collection and environment from Postman.",
       "Open your project in IntelliJ IDEA and choose Tools → Postman Migration Assistant.",
@@ -150,6 +151,7 @@
   },
   "footer": {
     "disclaimer": "An independent migration tool. Not affiliated with or endorsed by Postman or JetBrains.",
-    "docs": "Technical documentation"
+    "docs": "Technical documentation",
+    "marketplace": "JetBrains Marketplace"
   }
 }

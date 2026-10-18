@@ -17,7 +17,7 @@
     "features": "功能",
     "plans": "Free 与 Pro",
     "faq": "常见问题",
-    "beta": "发布动态",
+    "beta": "获取插件",
     "languageAria": "选择语言"
   },
   "hero": {
@@ -26,7 +26,7 @@
     "accent": "IntelliJ HTTP Client。",
     "title2": "清楚了解已转换内容和待检查内容。",
     "lede": "导入 v2.0 或 v2.1 集合，选择环境，查看请求依赖，然后导出可在 IDE 中使用的 .http 文件。报告会指出无法安全映射的部分。",
-    "cta": "比较 Free 与 Pro",
+    "cta": "从 Marketplace 安装",
     "secondary": "查看转换前后",
     "note": "本地分析与导出 · 不修改原始集合 · 导入期间不调用 API",
     "artAria": "示意图：分析 Postman 集合并导出 IntelliJ HTTP Client 文件",
@@ -117,13 +117,14 @@
       "包含 Free 全部功能，并通过 Marketplace 提供试用和订阅授权。"
     ],
     "trial": "最终订阅价格和试用条款会由 JetBrains Marketplace 在购买前显示。",
+    "cta": "获取插件",
     "unsupported": "不受支持的 JavaScript、异步或网络行为，以及不完整的协议元数据，在两个版本中都需要人工检查。Pro 不会把不安全的猜测标记为受支持转换。"
   },
   "install": {
     "eyebrow": "开始使用",
     "title": "用您自己的真实集合试用。",
-    "intro": "1.0 版本面向 IntelliJ IDEA Ultimate 2025.3.2。请联系我们了解发布动态，或通过 Settings → Plugins 安装已签名的 Marketplace 构建。",
-    "cta": "获取发布动态",
+    "intro": "1.0 版本面向 IntelliJ IDEA Ultimate 2025.3.2。打开 JetBrains Marketplace 页面，安装已签名版本，然后从 Tools → Postman Migration Assistant 开始使用。",
+    "cta": "打开 JetBrains Marketplace",
     "steps": [
       "从 Postman 导出集合和环境。",
       "在 IntelliJ IDEA 中打开项目，选择 Tools → Postman Migration Assistant。",
@@ -150,6 +151,7 @@
   },
   "footer": {
     "disclaimer": "独立迁移工具，与 Postman 或 JetBrains 无关联，也未获得其认证。",
-    "docs": "技术文档"
+    "docs": "技术文档",
+    "marketplace": "JetBrains Marketplace"
   }
 }

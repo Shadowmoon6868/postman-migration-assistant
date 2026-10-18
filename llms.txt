@@ -11,6 +11,7 @@ Free analyzes the complete collection and exports safe independent basic request
 - Documentation: https://github.com/Shadowmoon6868/postman-migration-assistant/blob/main/README.md
 - Compatibility matrix: https://github.com/Shadowmoon6868/postman-migration-assistant/blob/main/site/docs/COMPATIBILITY.md
 - Corpus methodology: https://github.com/Shadowmoon6868/postman-migration-assistant/blob/main/site/docs/CORPUS-BENCHMARK.md
+- JetBrains Marketplace: https://plugins.jetbrains.com/search?search=Postman%20Migration%20Assistant
 - Contact: shadowmoon6868@gmail.com
 
 97.2% is static conversion coverage, not a runtime request success rate.

@@ -31,6 +31,8 @@ for (const locale of locales) {
   assert(html.includes(`<track default kind="captions" srclang="${locale.htmlLang}"`));
   assert.equal((html.match(/class="feature-mark"/g) || []).length, locale.features.items.length);
   assert(html.includes('id="plans"') && html.includes(locale.plans.freeName) && html.includes(locale.plans.proName));
+  assert(html.includes('https://plugins.jetbrains.com/'), `Missing Marketplace link: ${locale.code}`);
+  assert.equal((html.match(/https:\/\/plugins\.jetbrains\.com\//g) || []).length, 6);
   assert.equal((html.match(/class="plan-card/g) || []).length, 2);
   const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
   assert.equal(canonical, `${baseUrl}${locale.code === 'en' ? '' : `${locale.code}/`}`);

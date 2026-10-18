@@ -6,6 +6,7 @@ const source = resolve(root, 'site');
 const output = resolve(root, '_site');
 const repository = process.env.GITHUB_REPOSITORY || '';
 const repoUrl = process.env.REPO_URL || (repository ? `https://github.com/${repository}` : 'https://github.com/');
+const marketplaceUrl = process.env.MARKETPLACE_URL || 'https://plugins.jetbrains.com/search?search=Postman%20Migration%20Assistant';
 const rawSiteUrl = process.env.SITE_URL || (repository
   ? `https://${repository.split('/')[0]}.github.io/${repository.split('/')[1]}/`
   : 'http://localhost:4173/');
@@ -89,7 +90,7 @@ for (const locale of locales) {
     ]
   };
   const raw = {
-    siteUrl, canonical, repoUrl, assetPrefix, hreflangLinks: hrefs, languageLinks,
+    siteUrl, canonical, repoUrl, marketplaceUrl, assetPrefix, hreflangLinks: hrefs, languageLinks,
     videoTracks, stepsHtml, featuresHtml, installStepsHtml, freeItemsHtml, proItemsHtml, faqHtml,
     structuredData: JSON.stringify(structuredData).replaceAll('<', '\\u003c')
   };
@@ -117,6 +118,6 @@ const sitemapEntries = locales.map(locale => {
 }).join('');
 await writeFile(resolve(output, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">${sitemapEntries}</urlset>\n`);
 await writeFile(resolve(output, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${siteUrl}sitemap.xml\n`);
-await writeFile(resolve(output, 'llms.txt'), `# Postman Migration Assistant\n\n> Offline Postman Collection v2.0/v2.1 migration to IntelliJ HTTP Client. Version 1.0 targets IntelliJ IDEA Ultimate 2025.3.2.\n\nFree analyzes the complete collection and exports safe independent basic requests. Pro preserves supported scripts, ordered dependencies, advanced OAuth2 and HTTP runtime semantics, and adds differential verification. Unsupported behavior remains manual review in both editions.\n\n${locales.map(locale => `- ${locale.label}: ${localeUrl(locale)}`).join('\n')}\n- Documentation: ${repoUrl}/blob/main/README.md\n- Compatibility matrix: ${repoUrl}/blob/main/site/docs/COMPATIBILITY.md\n- Corpus methodology: ${repoUrl}/blob/main/site/docs/CORPUS-BENCHMARK.md\n- Contact: shadowmoon6868@gmail.com\n\n97.2% is static conversion coverage, not a runtime request success rate.\n`);
+await writeFile(resolve(output, 'llms.txt'), `# Postman Migration Assistant\n\n> Offline Postman Collection v2.0/v2.1 migration to IntelliJ HTTP Client. Version 1.0 targets IntelliJ IDEA Ultimate 2025.3.2.\n\nFree analyzes the complete collection and exports safe independent basic requests. Pro preserves supported scripts, ordered dependencies, advanced OAuth2 and HTTP runtime semantics, and adds differential verification. Unsupported behavior remains manual review in both editions.\n\n${locales.map(locale => `- ${locale.label}: ${localeUrl(locale)}`).join('\n')}\n- Documentation: ${repoUrl}/blob/main/README.md\n- Compatibility matrix: ${repoUrl}/blob/main/site/docs/COMPATIBILITY.md\n- Corpus methodology: ${repoUrl}/blob/main/site/docs/CORPUS-BENCHMARK.md\n- JetBrains Marketplace: ${marketplaceUrl}\n- Contact: shadowmoon6868@gmail.com\n\n97.2% is static conversion coverage, not a runtime request success rate.\n`);
 await writeFile(resolve(output, '.nojekyll'), '');
 console.log(`Built ${locales.length} languages in ${output}; default: English; base: ${siteUrl}`);
