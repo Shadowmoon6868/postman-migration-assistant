@@ -134,7 +134,7 @@ text(od, (105, 108), "POSTMAN MIGRATION ASSISTANT", F24, CYAN)
 text(od, (105, 205), "From collections", F64)
 text(od, (105, 285), "to IntelliJ HTTP Client", F43, PURPLE)
 text(od, (105, 433), "Analyze  →  Export  →  Verify", F31, WHITE)
-text(od, (105, 516), "Technical preview · Offline import · Clear reports", F19, MUTED)
+text(od, (105, 516), "Freemium 1.0 · Offline import · Clear reports", F19, MUTED)
 og.save(ASSETS / "og-card.png", optimize=True)
 
 binary = os.environ.get("FFMPEG_BINARY")

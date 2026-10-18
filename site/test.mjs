@@ -30,6 +30,8 @@ for (const locale of locales) {
   assert.equal((html.match(/<track\b/g) || []).length, locales.length);
   assert(html.includes(`<track default kind="captions" srclang="${locale.htmlLang}"`));
   assert.equal((html.match(/class="feature-mark"/g) || []).length, locale.features.items.length);
+  assert(html.includes('id="plans"') && html.includes(locale.plans.freeName) && html.includes(locale.plans.proName));
+  assert.equal((html.match(/class="plan-card/g) || []).length, 2);
   const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
   assert.equal(canonical, `${baseUrl}${locale.code === 'en' ? '' : `${locale.code}/`}`);
   for (const option of locales) {
@@ -44,6 +46,7 @@ for (const locale of locales) {
   assert(vtt.startsWith('WEBVTT\n') && vtt.includes(locale.demo.captions[0]));
 }
 assert(rootHtml.includes('Bring Postman collections into'), 'Root must default to English');
+assert(!/technical preview|join the beta|request beta access|closed beta/i.test(rootHtml), 'English launch page must not advertise a beta');
 for (const file of ['assets/site.css', 'assets/icon.svg', 'assets/import-demo.mp4', 'assets/demo-poster.png', 'assets/og-card.png', 'robots.txt', 'sitemap.xml', 'llms.txt']) {
   assert((await stat(resolve(output, file))).size > 0, `${file} is empty`);
 }

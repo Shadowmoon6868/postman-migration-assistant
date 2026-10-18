@@ -1,6 +1,6 @@
 # Compatibility và mức bằng chứng
 
-Technical preview 0.9.1 nhắm **IntelliJ IDEA Ultimate 2025.3.2,
+Phiên bản 1.0 nhắm **IntelliJ IDEA Ultimate 2025.3.2,
 IU-253.30387.90** trên Windows. Descriptor giới hạn build
 `253.30387.*`. Chưa công bố hỗ trợ rộng cho phiên bản khác hoặc macOS/Linux.
 
@@ -19,7 +19,7 @@ IU-253.30387.90** trên Windows. Descriptor giới hạn build
 | Native UI automation đầy đủ | **NOT_RUN** | Không được suy ra từ build hoặc plugin verification |
 | macOS / Linux | Chưa có bằng chứng runtime | Không công bố compatibility |
 
-Plugin Verifier đã kiểm tra artifact 0.9.1 cho target IU-253.30387.90.
+Plugin Verifier đã kiểm tra artifact 1.0.0 cho target IU-253.30387.90 và báo `Compatible`.
 Bằng chứng này chỉ xác nhận mức API compatibility của target; nó không chứng
 minh mọi dialog hoặc request đã hoạt động ở runtime. Với request bị cô lập,
 report chỉ rõ nguồn để người dùng sửa thủ công.

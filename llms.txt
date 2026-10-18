@@ -1,6 +1,8 @@
 # Postman Migration Assistant
 
-> Offline Postman Collection v2.0/v2.1 migration to IntelliJ HTTP Client. Technical preview targets IntelliJ IDEA Ultimate 2025.3.2.
+> Offline Postman Collection v2.0/v2.1 migration to IntelliJ HTTP Client. Version 1.0 targets IntelliJ IDEA Ultimate 2025.3.2.
+
+Free analyzes the complete collection and exports safe independent basic requests. Pro preserves supported scripts, ordered dependencies, advanced OAuth2 and HTTP runtime semantics, and adds differential verification. Unsupported behavior remains manual review in both editions.
 
 - English: https://shadowmoon6868.github.io/postman-migration-assistant/
 - Русский: https://shadowmoon6868.github.io/postman-migration-assistant/ru/

@@ -15,17 +15,18 @@
     "workflow": "Cách hoạt động",
     "demo": "Demo",
     "features": "Tính năng",
+    "plans": "Free & Pro",
     "faq": "FAQ",
-    "beta": "Đăng ký beta",
+    "beta": "Tin ra mắt",
     "languageAria": "Chọn ngôn ngữ"
   },
   "hero": {
-    "eyebrow": "IntelliJ IDEA 2025.3.2 · Technical preview",
+    "eyebrow": "Freemium 1.0 · IntelliJ IDEA 2025.3.2",
     "title1": "Đưa Postman collection vào",
     "accent": "IntelliJ HTTP Client.",
     "title2": "Biết rõ điều gì đã chuyển, điều gì cần kiểm tra.",
     "lede": "Import Collection v2.0 hoặc v2.1, chọn environment, xem phân tích phụ thuộc rồi xuất file .http để chạy trong IDE. Báo cáo chỉ rõ phần chưa có ánh xạ an toàn.",
-    "cta": "Nhận bản beta",
+    "cta": "So sánh Free và Pro",
     "secondary": "Xem trước và sau",
     "note": "Phân tích và xuất file cục bộ · Không ghi đè collection gốc · Chưa gửi request ở bước import",
     "artAria": "Minh họa collection Postman được phân tích và xuất thành file IntelliJ HTTP Client",
@@ -41,7 +42,7 @@
     "convertible": "request chuyển đổi tĩnh",
     "collections": "collection công khai được đo",
     "requests": "request thực thi trong corpus",
-    "note": "Đây là độ phủ chuyển đổi tĩnh của v0.9.0, không phải tỷ lệ chạy thành công. 72 request còn lại cần rà soát thủ công.",
+    "note": "Đây là độ phủ chuyển đổi tĩnh của engine 1.0, không phải tỷ lệ chạy thành công. 72 request còn lại cần rà soát thủ công.",
     "methodology": "Xem phương pháp đo"
   },
   "workflow": {
@@ -93,11 +94,36 @@
     "limitBody": "JavaScript ngoài tập hỗ trợ, hành vi mạng/async phức tạp và metadata protocol thiếu có thể cần sửa thủ công. Convertible không chứng minh request chạy đúng trên API của bạn. Compatibility chỉ công bố cho target trong",
     "matrixLink": "compatibility matrix"
   },
+  "plans": {
+    "eyebrow": "Gói sử dụng",
+    "title": "Free đủ hữu ích để bắt đầu. Nâng cấp khi cần bảo toàn hành vi.",
+    "intro": "Plugin phân loại theo từng request. Một collection có thể xuất request đơn giản bằng Free và liệt kê rõ request cần Pro.",
+    "freeKicker": "Không cần thuê bao",
+    "freeName": "Free",
+    "freeTagline": "Phân tích toàn bộ và xuất request cơ bản độc lập một cách an toàn.",
+    "freeItems": [
+      "Phân tích offline đầy đủ, chuẩn hóa v2.0 lên v2.1, dependency graph, report và danh sách manual review.",
+      "Environment, globals, private values, Basic/Bearer/API key tĩnh và request HTTP độc lập an toàn.",
+      "GraphQL, gRPC và WebSocket cơ bản khi đủ metadata và không gắn behavior nâng cao.",
+      "File pro-features.md liệt kê request được hỗ trợ nhưng cần bảo toàn hành vi."
+    ],
+    "proKicker": "Cho migration production",
+    "proName": "Pro",
+    "proTagline": "Bảo toàn runtime behavior đã hỗ trợ và xác minh tính tương đương.",
+    "proItems": [
+      "Pre-request, response, assertion và external local script đã hỗ trợ qua compatibility bridge.",
+      "Scenario phụ thuộc tuần tự, dynamic variable key, OAuth2 nâng cao và semantics cookie/redirect/TLS/URL/HTTP.",
+      "Chạy differential target và tạo báo cáo trace Newman so với IntelliJ đã che dữ liệu nhạy cảm.",
+      "Toàn bộ tính năng Free, với trial và subscription entitlement qua Marketplace."
+    ],
+    "trial": "Giá thuê bao và điều khoản trial cuối cùng sẽ được JetBrains Marketplace hiển thị trước khi mua.",
+    "unsupported": "JavaScript, hành vi async/network hoặc protocol metadata chưa hỗ trợ vẫn cần manual review ở cả hai gói. Pro không biến một phỏng đoán thiếu an toàn thành chuyển đổi được hỗ trợ."
+  },
   "install": {
     "eyebrow": "Bắt đầu",
     "title": "Thử trên một collection thực của bạn.",
-    "intro": "Technical preview nhắm IntelliJ IDEA Ultimate 2025.3.2. Liên hệ để tham gia beta, nhận bản build và hướng dẫn cài qua Settings → Plugins → Install Plugin from Disk.",
-    "cta": "Yêu cầu bản beta",
+    "intro": "Phiên bản 1.0 nhắm IntelliJ IDEA Ultimate 2025.3.2. Liên hệ để nhận thông tin ra mắt hoặc cài bản Marketplace đã ký qua Settings → Plugins.",
+    "cta": "Nhận tin ra mắt",
     "steps": [
       "Export collection và environment từ Postman.",
       "Mở project trong IntelliJ IDEA và chọn Tools → Postman Migration Assistant.",
@@ -113,12 +139,13 @@
     { "question": "97,2% có nghĩa là request chạy thành công?", "answer": "Không. Đây là tỷ lệ chuyển đổi tĩnh: 2.510 trong 2.582 request thực thi thuộc 20 collection công khai. Vẫn cần kiểm thử runtime trên API đích." },
     { "question": "Collection có bị tải lên máy chủ không?", "answer": "Không trong lúc import. Phân tích và xuất file diễn ra cục bộ. Khi bạn chạy file .http, IntelliJ HTTP Client gửi request đến API đã cấu hình." },
     { "question": "Có hỗ trợ GraphQL, gRPC và WebSocket không?", "answer": "Có điều kiện. GraphQL cần query; gRPC cần URL, service/method và message; WebSocket cần URL và message sequence. Request thiếu dữ liệu được chỉ định rà soát thủ công." },
-    { "question": "Hiện nhắm IDE nào?", "answer": "Technical preview nhắm IntelliJ IDEA Ultimate 2025.3.2 (IU-253.30387.90). Xem compatibility matrix để biết bằng chứng mới nhất. Chưa công bố hỗ trợ rộng cho IDE hoặc hệ điều hành khác." }
+    { "question": "Free và Pro gồm những gì?", "answer": "Free phân tích toàn bộ collection và xuất request cơ bản độc lập an toàn. Pro bảo toàn script, scenario phụ thuộc, OAuth2 và HTTP runtime semantics đã hỗ trợ, đồng thời thêm differential verification. Unsupported behavior vẫn cần manual review ở cả hai." },
+    { "question": "Hiện nhắm IDE nào?", "answer": "Phiên bản 1.0 nhắm IntelliJ IDEA Ultimate 2025.3.2 (IU-253.30387.90). Xem compatibility matrix để biết bằng chứng mới nhất. Chưa công bố hỗ trợ rộng cho IDE hoặc hệ điều hành khác." }
   ],
   "contact": {
-    "eyebrow": "Beta kín",
-    "title": "Mang một collection khó. Chúng ta sẽ xem nó chuyển được đến đâu.",
-    "intro": "Gửi loại collection, phiên bản IDE và mục tiêu migration. Đừng gửi token, secret hay dữ liệu khách hàng qua email.",
+    "eyebrow": "Ra mắt phiên bản 1.0",
+    "title": "Mang một collection khó. Xem rõ phần Free, Pro hoặc manual review trước khi xuất.",
+    "intro": "Hỏi về thời điểm có trên Marketplace, giá hoặc compatibility. Đừng gửi token, secret hay dữ liệu khách hàng qua email.",
     "cta": "Liên hệ qua email"
   },
   "footer": {

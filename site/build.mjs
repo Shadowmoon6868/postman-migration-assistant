@@ -67,6 +67,8 @@ for (const locale of locales) {
   const featuresHtml = locale.features.items.map((item, index) =>
     `<article><span class="feature-mark" aria-hidden="true">${marks[index % marks.length]}</span><h3>${esc(item.title)}</h3><p>${esc(item.body)}</p></article>`).join('');
   const installStepsHtml = locale.install.steps.map(step => `<li>${esc(step)}</li>`).join('');
+  const freeItemsHtml = locale.plans.freeItems.map(item => `<li><span aria-hidden="true">✓</span>${esc(item)}</li>`).join('');
+  const proItemsHtml = locale.plans.proItems.map(item => `<li><span aria-hidden="true">✓</span>${esc(item)}</li>`).join('');
   const faqHtml = locale.faq.map(item =>
     `<details><summary>${esc(item.question)}</summary><p>${esc(item.answer)}</p></details>`).join('');
   const structuredData = {
@@ -74,7 +76,7 @@ for (const locale of locales) {
     '@graph': [
       { '@type': 'WebSite', '@id': `${siteUrl}#website`, url: siteUrl, name: 'Postman Migration Assistant', inLanguage: locale.htmlLang },
       { '@type': 'SoftwareApplication', '@id': `${siteUrl}#software`, name: 'Postman Migration Assistant', url: canonical,
-        applicationCategory: 'DeveloperApplication', operatingSystem: 'Windows', softwareVersion: '0.9.1 technical preview',
+        applicationCategory: 'DeveloperApplication', operatingSystem: 'Windows', softwareVersion: '1.0.0', isAccessibleForFree: true,
         description: locale.seo.description, requirements: 'IntelliJ IDEA Ultimate 2025.3.2 (IU-253.30387.90)',
         inLanguage: locale.htmlLang },
       { '@type': 'VideoObject', '@id': `${siteUrl}#demo`, name: locale.demo.title,
@@ -88,7 +90,7 @@ for (const locale of locales) {
   };
   const raw = {
     siteUrl, canonical, repoUrl, assetPrefix, hreflangLinks: hrefs, languageLinks,
-    videoTracks, stepsHtml, featuresHtml, installStepsHtml, faqHtml,
+    videoTracks, stepsHtml, featuresHtml, installStepsHtml, freeItemsHtml, proItemsHtml, faqHtml,
     structuredData: JSON.stringify(structuredData).replaceAll('<', '\\u003c')
   };
   const html = template.replace(/\[\[([a-zA-Z][a-zA-Z0-9.]*)\]\]/g, (_, key) => {
@@ -111,10 +113,10 @@ for (const locale of locales) {
 const sitemapEntries = locales.map(locale => {
   const alternates = locales.map(option =>
     `<xhtml:link rel="alternate" hreflang="${option.htmlLang}" href="${localeUrl(option)}"/>`).join('');
-  return `<url><loc>${localeUrl(locale)}</loc><lastmod>2026-10-15</lastmod>${alternates}<xhtml:link rel="alternate" hreflang="x-default" href="${siteUrl}"/></url>`;
+  return `<url><loc>${localeUrl(locale)}</loc><lastmod>2026-10-18</lastmod>${alternates}<xhtml:link rel="alternate" hreflang="x-default" href="${siteUrl}"/></url>`;
 }).join('');
 await writeFile(resolve(output, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">${sitemapEntries}</urlset>\n`);
 await writeFile(resolve(output, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${siteUrl}sitemap.xml\n`);
-await writeFile(resolve(output, 'llms.txt'), `# Postman Migration Assistant\n\n> Offline Postman Collection v2.0/v2.1 migration to IntelliJ HTTP Client. Technical preview targets IntelliJ IDEA Ultimate 2025.3.2.\n\n${locales.map(locale => `- ${locale.label}: ${localeUrl(locale)}`).join('\n')}\n- Documentation: ${repoUrl}/blob/main/README.md\n- Compatibility matrix: ${repoUrl}/blob/main/site/docs/COMPATIBILITY.md\n- Corpus methodology: ${repoUrl}/blob/main/site/docs/CORPUS-BENCHMARK.md\n- Contact: shadowmoon6868@gmail.com\n\n97.2% is static conversion coverage, not a runtime request success rate.\n`);
+await writeFile(resolve(output, 'llms.txt'), `# Postman Migration Assistant\n\n> Offline Postman Collection v2.0/v2.1 migration to IntelliJ HTTP Client. Version 1.0 targets IntelliJ IDEA Ultimate 2025.3.2.\n\nFree analyzes the complete collection and exports safe independent basic requests. Pro preserves supported scripts, ordered dependencies, advanced OAuth2 and HTTP runtime semantics, and adds differential verification. Unsupported behavior remains manual review in both editions.\n\n${locales.map(locale => `- ${locale.label}: ${localeUrl(locale)}`).join('\n')}\n- Documentation: ${repoUrl}/blob/main/README.md\n- Compatibility matrix: ${repoUrl}/blob/main/site/docs/COMPATIBILITY.md\n- Corpus methodology: ${repoUrl}/blob/main/site/docs/CORPUS-BENCHMARK.md\n- Contact: shadowmoon6868@gmail.com\n\n97.2% is static conversion coverage, not a runtime request success rate.\n`);
 await writeFile(resolve(output, '.nojekyll'), '');
 console.log(`Built ${locales.length} languages in ${output}; default: English; base: ${siteUrl}`);

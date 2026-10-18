@@ -15,17 +15,18 @@
     "workflow": "How it works",
     "demo": "Demo",
     "features": "Features",
+    "plans": "Free & Pro",
     "faq": "FAQ",
-    "beta": "Join the beta",
+    "beta": "Launch updates",
     "languageAria": "Choose language"
   },
   "hero": {
-    "eyebrow": "IntelliJ IDEA 2025.3.2 · Technical preview",
+    "eyebrow": "Freemium 1.0 · IntelliJ IDEA 2025.3.2",
     "title1": "Bring Postman collections into",
     "accent": "IntelliJ HTTP Client.",
     "title2": "Know what converted and what needs review.",
     "lede": "Import a v2.0 or v2.1 collection, select an environment, inspect request dependencies, then export .http files for your IDE. The report identifies anything that cannot be mapped safely.",
-    "cta": "Request beta access",
+    "cta": "Compare Free and Pro",
     "secondary": "See before and after",
     "note": "Local analysis and export · Original collection preserved · No API calls during import",
     "artAria": "Illustration: Postman collection is analyzed and exported as IntelliJ HTTP Client files",
@@ -41,7 +42,7 @@
     "convertible": "statically convertible requests",
     "collections": "public collections measured",
     "requests": "executable requests in the corpus",
-    "note": "This is static conversion coverage for v0.9.0, not a request execution success rate. The remaining 72 requests require manual review.",
+    "note": "This is static conversion coverage for the 1.0 migration engine, not a request execution success rate. The remaining 72 requests require manual review.",
     "methodology": "Read the methodology"
   },
   "workflow": {
@@ -93,11 +94,36 @@
     "limitBody": "Unsupported JavaScript, complex network or async behavior, and incomplete protocol metadata may need manual work. A convertible request is not proof it ran correctly against your API. Compatibility is stated only for the tested target in the",
     "matrixLink": "compatibility matrix"
   },
+  "plans": {
+    "eyebrow": "Plans",
+    "title": "Start with a useful Free edition. Upgrade when behavior must survive the move.",
+    "intro": "Classification happens per request. A collection can export simple requests with Free while clearly listing the requests that need Pro.",
+    "freeKicker": "Available without a subscription",
+    "freeName": "Free",
+    "freeTagline": "Analyze everything and export independent basic requests safely.",
+    "freeItems": [
+      "Full offline analysis, v2.0-to-v2.1 normalization, dependency graph, report, and manual-review inventory.",
+      "Environment, globals, private values, static Basic/Bearer/API key, and safe independent HTTP requests.",
+      "Basic GraphQL, gRPC, and WebSocket conversion when metadata is complete and no advanced behavior is attached.",
+      "A pro-features.md list for supported requests that need behavior preservation."
+    ],
+    "proKicker": "For production migrations",
+    "proName": "Pro",
+    "proTagline": "Preserve supported runtime behavior and verify parity.",
+    "proItems": [
+      "Supported pre-request, response, assertion, and external local scripts through the compatibility bridge.",
+      "Ordered dependency scenarios, dynamic variable keys, advanced OAuth2, and cookie/redirect/TLS/URL/HTTP semantics.",
+      "Differential target execution and redacted Newman-versus-IntelliJ trace reports.",
+      "Everything in Free, with Marketplace trial and subscription entitlement."
+    ],
+    "trial": "Final subscription price and trial terms will be shown by JetBrains Marketplace before purchase.",
+    "unsupported": "Unsupported JavaScript, async or network behavior, and incomplete protocol metadata remain manual review in both editions. Pro never turns an unsafe guess into a supported conversion."
+  },
   "install": {
     "eyebrow": "Get started",
     "title": "Try one of your real collections.",
-    "intro": "The technical preview targets IntelliJ IDEA Ultimate 2025.3.2. Contact us to join the beta, receive a build, and install it through Settings → Plugins → Install Plugin from Disk.",
-    "cta": "Request beta access",
+    "intro": "Version 1.0 targets IntelliJ IDEA Ultimate 2025.3.2. Contact us for launch availability or install a signed Marketplace build through Settings → Plugins.",
+    "cta": "Get launch updates",
     "steps": [
       "Export the collection and environment from Postman.",
       "Open your project in IntelliJ IDEA and choose Tools → Postman Migration Assistant.",
@@ -113,12 +139,13 @@
     { "question": "Does 97.2% mean requests succeed at runtime?", "answer": "No. It is static conversion coverage: 2,510 of 2,582 executable requests in 20 public collections. Runtime testing against the target API is still required." },
     { "question": "Is my collection uploaded to a server?", "answer": "No, not during import. Analysis and export run locally. When you execute a generated .http file, IntelliJ HTTP Client sends requests to the API you configured." },
     { "question": "Does it support GraphQL, gRPC, and WebSocket?", "answer": "Conditionally. GraphQL needs a query; gRPC needs a URL, service/method, and message; WebSocket needs a URL and message sequence. Incomplete requests are flagged for manual review." },
-    { "question": "Which IDE is currently targeted?", "answer": "The technical preview targets IntelliJ IDEA Ultimate 2025.3.2 (IU-253.30387.90). Check the compatibility matrix for current evidence. Broader IDE and operating-system support has not been announced." }
+    { "question": "What is included in Free and Pro?", "answer": "Free analyzes the full collection and exports safe independent basic requests. Pro preserves supported scripts, dependent scenarios, advanced OAuth2 and HTTP runtime semantics, and adds differential verification. Unsupported behavior remains manual review in both." },
+    { "question": "Which IDE is currently targeted?", "answer": "Version 1.0 targets IntelliJ IDEA Ultimate 2025.3.2 (IU-253.30387.90). Check the compatibility matrix for current evidence. Broader IDE and operating-system support has not been announced." }
   ],
   "contact": {
-    "eyebrow": "Closed beta",
-    "title": "Bring a difficult collection. Let's see how far it converts.",
-    "intro": "Tell us your collection type, IDE version, and migration goal. Please do not email tokens, secrets, or customer data.",
+    "eyebrow": "Version 1.0 launch",
+    "title": "Bring a difficult collection. See what is Free, Pro, or manual review before export.",
+    "intro": "Ask about Marketplace availability, pricing, or compatibility. Please do not email tokens, secrets, or customer data.",
     "cta": "Contact by email"
   },
   "footer": {
