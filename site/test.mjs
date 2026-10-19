@@ -13,6 +13,9 @@ assert(english, 'English locale must exist');
 for (const code of ['en', 'ru', 'zh', 'vi']) assert(locales.some(locale => locale.code === code));
 const legacyBrand = String.fromCharCode(86, 65, 76);
 const rootHtml = await readFile(resolve(output, 'index.html'), 'utf8');
+const eulaHtml = await readFile(resolve(output, 'eula', 'index.html'), 'utf8');
+assert(eulaHtml.includes('Trần Việt Anh') && eulaHtml.includes('Shadowmoon6868'));
+assert(eulaHtml.includes('seven-day trial'));
 const baseUrl = rootHtml.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
 assert(baseUrl?.endsWith('/'));
 
@@ -55,6 +58,7 @@ for (const file of ['assets/site.css', 'assets/icon.svg', 'assets/import-demo.mp
 const mp4 = await readFile(resolve(output, 'assets/import-demo.mp4'));
 assert.equal(mp4.toString('ascii', 4, 8), 'ftyp');
 const sitemap = await readFile(resolve(output, 'sitemap.xml'), 'utf8');
-assert.equal((sitemap.match(/<url>/g) || []).length, locales.length);
+assert.equal((sitemap.match(/<url>/g) || []).length, locales.length + 1);
+assert(sitemap.includes(`${baseUrl}eula/`));
 assert(sitemap.includes('hreflang="x-default"'));
 console.log(`Site checks passed for ${locales.length} languages`);

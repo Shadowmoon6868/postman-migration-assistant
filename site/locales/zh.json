@@ -152,6 +152,7 @@
   "footer": {
     "disclaimer": "独立迁移工具，与 Postman 或 JetBrains 无关联，也未获得其认证。",
     "docs": "技术文档",
-    "marketplace": "JetBrains Marketplace"
+    "marketplace": "JetBrains Marketplace",
+    "eula": "开发者许可协议"
   }
 }

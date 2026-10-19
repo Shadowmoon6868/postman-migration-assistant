@@ -53,6 +53,9 @@ const timecodes = [
 ];
 await mkdir(output, { recursive: true });
 await cp(resolve(source, 'assets'), resolve(output, 'assets'), { recursive: true });
+const eulaTemplate = await readFile(resolve(source, 'eula', 'index.html'), 'utf8');
+await mkdir(resolve(output, 'eula'), { recursive: true });
+await writeFile(resolve(output, 'eula', 'index.html'), eulaTemplate.replaceAll('[[siteUrl]]', siteUrl));
 
 for (const locale of locales) {
   const canonical = localeUrl(locale);
@@ -115,7 +118,7 @@ const sitemapEntries = locales.map(locale => {
   const alternates = locales.map(option =>
     `<xhtml:link rel="alternate" hreflang="${option.htmlLang}" href="${localeUrl(option)}"/>`).join('');
   return `<url><loc>${localeUrl(locale)}</loc><lastmod>2026-10-18</lastmod>${alternates}<xhtml:link rel="alternate" hreflang="x-default" href="${siteUrl}"/></url>`;
-}).join('');
+}).join('') + `<url><loc>${siteUrl}eula/</loc><lastmod>2026-10-19</lastmod></url>`;
 await writeFile(resolve(output, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">${sitemapEntries}</urlset>\n`);
 await writeFile(resolve(output, 'robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${siteUrl}sitemap.xml\n`);
 await writeFile(resolve(output, 'llms.txt'), `# Postman Migration Assistant\n\n> Offline Postman Collection v2.0/v2.1 migration to IntelliJ HTTP Client. Version 1.0 targets IntelliJ IDEA Ultimate 2025.3.2.\n\nFree analyzes the complete collection and exports safe independent basic requests. Pro preserves supported scripts, ordered dependencies, advanced OAuth2 and HTTP runtime semantics, and adds differential verification. Unsupported behavior remains manual review in both editions.\n\n${locales.map(locale => `- ${locale.label}: ${localeUrl(locale)}`).join('\n')}\n- Documentation: ${repoUrl}/blob/main/README.md\n- Compatibility matrix: ${repoUrl}/blob/main/site/docs/COMPATIBILITY.md\n- Corpus methodology: ${repoUrl}/blob/main/site/docs/CORPUS-BENCHMARK.md\n- JetBrains Marketplace: ${marketplaceUrl}\n- Contact: shadowmoon6868@gmail.com\n\n97.2% is static conversion coverage, not a runtime request success rate.\n`);

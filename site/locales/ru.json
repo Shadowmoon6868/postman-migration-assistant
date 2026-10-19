@@ -152,6 +152,7 @@
   "footer": {
     "disclaimer": "Независимый инструмент переноса. Не связан с Postman или JetBrains и не одобрен ими.",
     "docs": "Техническая документация",
-    "marketplace": "JetBrains Marketplace"
+    "marketplace": "JetBrains Marketplace",
+    "eula": "Лицензионное соглашение"
   }
 }

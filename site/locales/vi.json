@@ -152,6 +152,7 @@
   "footer": {
     "disclaimer": "Công cụ migration độc lập. Không liên kết hoặc được chứng nhận bởi Postman hay JetBrains.",
     "docs": "Tài liệu kỹ thuật",
-    "marketplace": "JetBrains Marketplace"
+    "marketplace": "JetBrains Marketplace",
+    "eula": "EULA nhà phát triển"
   }
 }
